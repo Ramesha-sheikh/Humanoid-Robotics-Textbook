@@ -1,0 +1,1 @@
+<!-- Placeholder for Weekly Lesson Output Style documentation -->

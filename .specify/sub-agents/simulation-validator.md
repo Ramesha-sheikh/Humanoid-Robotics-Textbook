@@ -1,0 +1,1 @@
+<!-- Placeholder for Simulation Validator Sub-Agent documentation -->

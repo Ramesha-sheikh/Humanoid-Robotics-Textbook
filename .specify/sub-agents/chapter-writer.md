@@ -1,0 +1,1 @@
+<!-- Placeholder for Chapter Writer Sub-Agent documentation -->

@@ -1,0 +1,30 @@
+# Gitignore for Docusaurus (Node.js/TypeScript) + Python (RAG Backend)
+
+# Node.js/TypeScript
+node_modules/
+dist/
+build/
+*.log
+.env*
+.docusaurus/
+.cache/
+public/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# Docker
+Dockerfile.local
+.dockerignore
+
+# IDEs and OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp

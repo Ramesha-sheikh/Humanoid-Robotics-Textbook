@@ -1,0 +1,43 @@
+openapi: 3.0.0
+info:
+  title: Personalization API
+  version: 1.0.0
+paths:
+  /personalize/{chapter_id}:
+    post:
+      summary: Request personalized content for a chapter
+      parameters:
+        - in: path
+          name: chapter_id
+          schema:
+            type: string
+          required: true
+          description: The ID of the chapter to personalize
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - personalization_level
+              properties:
+                personalization_level:
+                  type: string
+                  enum: ["Beginner", "Intermediate", "Advanced"]
+      responses:
+        '200':
+          description: Personalized chapter content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  chapter_id:
+                    type: string
+                  personalized_content:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Chapter not found

@@ -1,0 +1,1 @@
+<!-- Placeholder for Capstone Project Output Style documentation -->

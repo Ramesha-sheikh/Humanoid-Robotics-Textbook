@@ -1,0 +1,1 @@
+<!-- Placeholder for Technical Writing Skill documentation -->

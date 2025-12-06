@@ -1,0 +1,1 @@
+<!-- Placeholder for RAG Chatbot Auditor Sub-Agent documentation -->

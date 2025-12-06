@@ -1,0 +1,14 @@
+openapi: 3.0.0
+info:
+  title: Content Ingestion API
+  version: 1.0.0
+paths:
+  /ingest:
+    post:
+      summary: Trigger content ingestion into Qdrant
+      description: This endpoint is for internal/admin use to re-ingest all textbook content into the Qdrant vector store.
+      responses:
+        '202':
+          description: Ingestion process started
+        '500':
+          description: Ingestion failed
