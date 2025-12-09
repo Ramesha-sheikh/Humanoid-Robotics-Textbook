@@ -2,35 +2,30 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
-
 const config: Config = {
   title: 'Physical AI & Humanoid Robotics',
   tagline: 'Bridging Digital Intelligence with the Physical World',
   favicon: 'img/favicon.ico',
 
-  // Future flags
   future: {
-    v4: true, // Improve compatibility with Docusaurus v4
+    v4: true,
   },
 
-  // Production URL
-  url: 'https://GIAIC-Students.github.io',
-  baseUrl: '/Physical-AI-Humanoid-Robotics-Textbook/',
+  // ✅ Vercel live URL
+  url: 'https://humanoid-robotics-textbook-psi.vercel.app',
+  // ✅ Base URL for Vercel deploy
+  baseUrl: '/',
 
-  // GitHub pages deployment config
   organizationName: 'GIAIC-Students',
   projectName: 'Physical-AI-Humanoid-Robotics-Textbook',
 
   onBrokenLinks: 'throw',
 
-  // Internationalization
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
 
-  // Plugins
   plugins: [],
 
   presets: [
@@ -50,9 +45,6 @@ const config: Config = {
           },
           editUrl:
             'https://github.com/GIAIC-Students/Physical-AI-Humanoid-Robotics-Textbook/tree/main/my-website/',
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
         },
         theme: {
           customCss: './src/css/custom.css',
