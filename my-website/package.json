@@ -15,7 +15,6 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@docusaurus/core": "3.9.2",
     "@docusaurus/preset-classic": "3.9.2",
     "@mdx-js/react": "^3.0.0",
@@ -23,15 +22,6 @@
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
-=======
-    "@docusaurus/core": "^3.0.0-rc.1",
-    "@docusaurus/preset-classic": "^3.0.0-rc.1",
-    "@mdx-js/react": "^3.0.0",
-    "clsx": "^2.0.0",
-    "prism-react-renderer": "^2.3.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
->>>>>>> a7d920193ce792bf5b2c8e211d93c297f7161419
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.9.2",

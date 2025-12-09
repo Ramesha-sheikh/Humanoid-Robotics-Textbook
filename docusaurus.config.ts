@@ -9,28 +9,33 @@ const config: Config = {
   tagline: 'Bridging Digital Intelligence with the Physical World',
   favicon: 'img/favicon.ico',
 
-  // Future flags
+  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
-    v4: true, // Improve compatibility with Docusaurus v4
+    v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
 
-  // Production URL
+  // Set the production url of your site here
   url: 'https://GIAIC-Students.github.io',
-  baseUrl: '/Physical-AI-Humanoid-Robotics-Textbook/',
+  // Set the /<baseUrl>/ pathname under which your site is served
+  // For GitHub pages deployment, it is often '/<projectName>/'
+  baseUrl: process.env.NODE_ENV === 'production' ? '/Physical-AI-Humanoid-Robotics-Textbook/' : '/',
 
-  // GitHub pages deployment config
-  organizationName: 'GIAIC-Students',
-  projectName: 'Physical-AI-Humanoid-Robotics-Textbook',
+  // GitHub pages deployment config.
+  // If you aren't using GitHub pages, you don't need these.
+  organizationName: 'GIAIC-Students', // Usually your GitHub org/user name.
+  projectName: 'Physical-AI-Humanoid-Robotics-Textbook', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'ignore',
 
-  // Internationalization
+  // Even if you don't use internationalization, you can use this field to set
+  // useful metadata like html lang. For example, if your site is Chinese, you
+  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
 
-  // Plugins
+  // Add Docusaurus plugins here
   plugins: [],
 
   presets: [
@@ -39,6 +44,9 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          routeBasePath: '/',
+          // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/GIAIC-Students/Physical-AI-Humanoid-Robotics-Textbook/tree/main/my-website/',
         },
@@ -48,20 +56,24 @@ const config: Config = {
             type: ['rss', 'atom'],
             xslt: true,
           },
+          // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/GIAIC-Students/Physical-AI-Humanoid-Robotics-Textbook/tree/main/my-website/',
+          // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
         },
         theme: {
-          customCss: './src/css/custom.css',
+          // customCss: './src/css/custom.css',
         },
       } satisfies Preset.Options,
     ],
   ],
 
   themeConfig: {
+    // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     colorMode: {
       defaultMode: 'dark',
@@ -76,7 +88,7 @@ const config: Config = {
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'docs',
           position: 'left',
           label: 'Tutorial',
         },
@@ -96,7 +108,7 @@ const config: Config = {
           items: [
             {
               label: 'Tutorial',
-              to: '/docs/introduction',
+              to: '/docs/introduction/introduction',
             },
           ],
         },

@@ -1,0 +1,59 @@
+/**
+ * Any CSS you add here will be applied to all pages of your Docusaurus site.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For dark mode in code blocks (Dracula theme for Prism.js) */
+html[data-theme='dark'] {
+  --ifm-background-color: #282a36; /* Dracula background */
+  --ifm-code-background: #282a36; /* Dracula background for code blocks */
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* Dracula theme colors for syntax highlighting */
+  --prism-color: #f8f8f2;
+  --prism-comment: #6272a4;
+  --prism-string: #f1fa8c;
+  --prism-constant: #bd93f9;
+  --prism-builtin: #50fa7b;
+  --prism-number: #bd93f9;
+  --prism-selector: #50fa7b;
+  --prism-tag: #ff79c6;
+  --prism-function: #50fa7b;
+  --prism-keyword: #ff79c6;
+  --prism-property: #ff79c6;
+  --prism-variable: #50fa7b;
+  --prism-punctuation: #f8f8f2;
+  --prism-doctype: #6272a4;
+  --prism-class-name: #50fa7b;
+  --prism-atrule: #ff79c6;
+  --prism-url: #8be9fd;
+  --prism-operator: #ff79c6;
+  --prism-important: #ff79c6;
+  --prism-regex: #f1fa8c;
+  --prism-changed: #ff79c6;
+  --prism-deleted: #ff5555;
+  --prism-inserted: #50fa7b;
+}
+
+/* Ensure external links open in a new tab and have an icon */
+a[target="_blank"]:not(.navbar__item):not(.button)::after {
+  content: '  besucht'; /* Unicode for external link icon */
+  display: inline-block;
+  margin-left: 0.25em;
+  font-size: 0.8em;
+  vertical-align: super;
+  color: inherit;
+  /* You might want to use a background image for an SVG icon instead */
+}
