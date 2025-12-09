@@ -38,6 +38,19 @@ const config: Config = {
   // Add Docusaurus plugins here
   plugins: [],
 
+  webpack: {
+    jsLoader: (isServer) => ({
+      loader: require.resolve('esbuild-loader'),
+      options: {
+        loader: 'tsx',
+        target: isServer ? 'node12' : 'es2017',
+      },
+    }),
+    alias: {
+      '@docusaurus-chat-plugin': require.resolve('./spec-kit-rag-chatbot/docusaurus-chat-plugin/src'),
+    },
+  },
+
   presets: [
     [
       'classic',

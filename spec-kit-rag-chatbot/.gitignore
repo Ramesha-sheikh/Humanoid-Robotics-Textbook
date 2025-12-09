@@ -1,0 +1,34 @@
+# Gitignore for SpecKit-Book-RAG-Chatbot-Docusaurus
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+dist/
+*.egg-info/
+.pytest_cache/
+.coverage
+
+# Node.js / Docusaurus (frontend)
+node_modules/
+build/
+.docusaurus/
+
+# Docker
+.dockerignore
+Dockerfile*
+
+# Environment variables
+.env
+.env.*
+!.env.example # Keep the example file
+
+# Editor/OS specific
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log

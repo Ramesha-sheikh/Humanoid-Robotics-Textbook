@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  title: SpecKit Book RAG Chatbot API
+  version: 1.0.0
+  description: API for the RAG-powered chatbot to answer questions from the AI book.
+
+servers:
+  - url: /
+    description: Local server
+
+paths:
+  /chat:
+    post:
+      summary: Send a query to the RAG chatbot
+      operationId: chatWithBot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Successful response from the chatbot
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Invalid request
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    ChatRequest:
+      type: object
+      properties:
+        user_query:
+          type: string
+          description: The user's question to the chatbot.
+        session_id:
+          type: string
+          nullable: true
+          description: Optional. For maintaining conversation history.
+        user_id:
+          type: string
+          nullable: true
+          description: Optional. For user-specific context or analytics.
+      required:
+        - user_query
+
+    ChatResponse:
+      type: object
+      properties:
+        answer:
+          type: string
+          description: The chatbot's answer to the query.
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+          description: List of sources used to generate the answer.
+        session_id:
+          type: string
+          nullable: true
+          description: Returned if provided in the request.
+      required:
+        - answer
+        - sources
+
+    Source:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of the source document/chapter.
+        url:
+          type: string
+          description: URL to the specific section or page of the source.
+        heading:
+          type: string
+          nullable: true
+          description: Specific heading or subsection within the source that the answer came from.
+      required:
+        - title
+        - url
