@@ -2,7 +2,6 @@
 id: introduction
 title: Introduction - Why Physical AI Matters
 sidebar_position: 1
-slug: /
 ---
 
 # Introduction: Why Physical AI Matters

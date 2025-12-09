@@ -30,3 +30,5 @@ yarn-error.log*
 *.swp
 =======
 >>>>>>> a7d920193ce792bf5b2c8e211d93c297f7161419
+.vercel
+.env*.local
