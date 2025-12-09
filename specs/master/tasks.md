@@ -1,161 +1,78 @@
----
-description: "Task list for Module 1 - ROS 2 implementation"
----
+# Physical AI & Humanoid Robotics Textbook Completion
 
-# Tasks: Module 1 - ROS 2
+## Phase 1: Setup
+- [X] T001 Create placeholder markdown files for all uncreated chapters in my-website/docs/<module-name>/
 
-**Input**: Design documents from `/specs/master/`
-**Prerequisites**: plan.md (required), spec.md (required for user stories)
+## Phase 2: Foundational Modules
 
-**Tests**: Not explicitly requested, so test tasks are omitted.
+### User Story: Complete Module 00 - Introduction to Physical AI
+- [X] T002 [US1] Draft content for D:\Hacthone2025\my-website\docs\00-introduction\index.md
+- [X] T003 [US1] Review and refine content for D:\Hacthone2025\my-website\docs\00-introduction\index.md
 
-**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
+### User Story: Complete Module 1 – ROS 2
+- [X] T004 [US2] Draft content for D:\Hacthone2025\my-website\docs\01-module-1-ros2\01-ros2-introduction.md
+- [ ] T005 [P] [US2] Draft content for D:\Hacthone2025\my-website\docs\01-module-1-ros2\02-nodes-topics-services.md
+- [ ] T006 [P] [US2] Draft content for D:\Hacthone2025\my-website\docs\01-module-1-ros2\02a-nodes-topics-services.md
+- [ ] T007 [P] [US2] Draft content for D:\Hacthone2025\my-website\docs\01-module-1-ros2\03-building-ros-packages.md
+- [ ] T008 [P] [US2] Draft content for D:\Hacthone2025\my-website\docs\01-module-1-ros2\04-urdf-xacro-humanoid.md
+- [ ] T009 [P] [US2] Draft content for D:\Hacthone2025\my-website\docs\01-module-1-ros2\05-launch-and-parameters.md
+- [ ] T010 [US2] Review and refine content for all Module 1 files
 
-## Format: `[ID] [P?] [Story] Description`
+### User Story: Complete Module 2 – Digital Twin
+- [X] T011 [US3] Draft content for D:\Hacthone2025\my-website\docs\module-2-digital-twin\chapter-09.md
+- [X] T012 [P] [US3] Draft content for D:\Hacthone2025\my-website\docs\module-2-digital-twin\chapter-10.md
+- [X] T013 [P] [US3] Draft content for D:\Hacthone2025\my-website\docs\module-2-digital-twin\chapter-11.md
+- [X] T014 [US3] Review and refine content for all Module 2 files
 
-- **[P]**: Can run in parallel (different files, no dependencies)
-- **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
-- Include exact file paths in descriptions
+## Phase 3: Advanced Concepts and Simulation
 
-## Path Conventions
+### User Story: Complete Module 3 – NVIDIA Isaac Sim
+- [ ] T015 [US4] Draft content for D:\Hacthone2025\my-website\docs\03-module-3-isaac\01-isaac-sim-installation.md
+- [ ] T016 [P] [US4] Draft content for D:\Hacthone2025\my-website\docs\03-module-3-isaac\02-synthetic-data-and-vslam.md
+- [ ] T017 [P] [US4] Draft content for D:\Hacthone2025\my-website\docs\03-module-3-isaac\03-nav2-bipedal-locomotion.md
+- [ ] T018 [P] [US4] Draft content for D:\Hacthone2025\my-website\docs\03-module-3-isaac\04-reinforcement-learning-humanoid.md
+- [ ] T019 [US4] Review and refine content for all Module 3 files
 
-- **Web app**: `my-website/docs/` for markdown files, `my-website/sidebars.js`
+### User Story: Complete Module 4 – VLA & Capstone
+- [ ] T020 [US5] Draft content for D:\Hacthone2025\my-website\docs\04-module-4-vla-capstone\01-whisper-voice-commands.md
+- [ ] T021 [P] [US5] Draft content for D:\Hacthone2025\my-website\docs\04-module-4-vla-capstone\02-llm-to-ros-planning.md
+- [ ] T022 [P] [US5] Draft content for D:\Hacthone2025\my-website\docs\04-module-4-vla-capstone\03-multi-modal-integration.md
+- [ ] T023 [P] [US5] Draft content for D:\Hacthone2025\my-website\docs\04-module-4-vla-capstone\04-capstone-autonomous-humanoid.md
+- [ ] T024 [US5] Review and refine content for all Module 4 files
 
-## Phase 1: Setup (Module 1 Infrastructure)
+## Phase 4: Supporting Content and Integration
 
-**Purpose**: Create directory and initialize `sidebars.js` for Module 1
+### User Story: Complete Appendices
+- [ ] T025 [US6] Draft content for D:\Hacthone2025\my-website\docs\appendices\installation.md
+- [ ] T026 [P] [US6] Draft content for D:\Hacthone2025\my-website\docs\appendices\sim-to-real.md
+- [ ] T027 [US6] Review and refine content for all Appendices files
 
-- [X] T001 Create directory `docs/01-module-1-ros2/`
-- [X] T002 Update `sidebars.js` to include Module 1 category and its chapters
+### User Story: Integrate RagChatbot Component
+- [ ] T028 [US7] Implement UI, state management, and interaction logic for D:\Hacthone2025\my-website\src\components\RagChatbot.tsx
+- [ ] T029 [US7] Connect RagChatbot to textbook content for RAG functionality
+- [ ] T030 [US7] Determine and implement optimal placement for RagChatbot in Docusaurus UI
+- [ ] T031 [US7] Review and test RagChatbot integration and functionality
 
----
+## Phase 5: Polish & Cross-Cutting Concerns
+- [ ] T032 Verify all newly created `.md` files are accurately referenced and ordered in D:\Hacthone2025\my-website\sidebars.ts
+- [ ] T033 Conduct comprehensive visual inspection of all pages for content completeness and correct rendering
+- [ ] T034 Test all sidebar links, internal hyperlinks, and external links for functionality
+- [ ] T035 Test responsive design of the Docusaurus site across various screen sizes
+- [ ] T036 Verify correct formatting and syntax highlighting for all code blocks
+- [ ] T037 Ensure overall content consistency and quality across all modules
 
-## Phase 2: Chapter 1 - ROS 2 Introduction (Priority: P1) [01-ros2-introduction.md]
+## Dependencies
+- Phase 1 (Setup) must be completed before Phase 2.
+- Phases 2, 3, and 4 (User Stories) can be worked on in parallel, but within each phase, tasks are sequential.
+- Phase 5 (Polish & Cross-Cutting Concerns) depends on the completion of all other phases.
 
-**Goal**: Generate the `01-ros2-introduction.md` file with full content, `rclpy` code, Roman Urdu comments, and MCQs.
-
-**Independent Test**: Verify the generated `01-ros2-introduction.md` file contains all required sections, code, comments, and MCQs.
-
-### Implementation for Chapter 1
-
-- [X] T003 [P] [US1] Generate Introduction, Concepts, Setup sections for `docs/01-module-1-ros2/01-ros2-introduction.md`
-- [X] T004 [P] [US2] Generate `rclpy` code examples with Roman Urdu comments for `docs/01-module-1-ros2/01-ros2-introduction.md`
-- [X] T005 [P] [US2] Generate Explanation section for `docs/01-module-1-ros2/01-ros2-introduction.md`
-- [X] T006 [P] [US3] Generate MCQs section for `docs/01-module-1-ros2/01-ros2-introduction.md`
-- [X] T007 [P] Generate Troubleshooting, Summary, Resources sections for `docs/01-module-1-ros2/01-ros2-introduction.md`
-
----
-
-## Phase 3: Chapter 2 - Nodes, Topics, Services (Priority: P1) [02-nodes-topics-services.md]
-
-**Goal**: Generate the `02-nodes-topics-services.md` file with full content, `rclpy` code, Roman Urdu comments, and MCQs.
-
-**Independent Test**: Verify the generated `02-nodes-topics-services.md` file contains all required sections, code, comments, and MCQs.
-
-### Implementation for Chapter 2
-
-- [ ] T008 [P] [US1] Generate Introduction, Concepts, Setup sections for `docs/01-module-1-ros2/02-nodes-topics-services.md`
-- [ ] T009 [P] [US2] Generate `rclpy` code examples for nodes, topics, services with Roman Urdu comments for `docs/01-module-1-ros2/02-nodes-topics-services.md`
-- [ ] T010 [P] [US2] Generate Explanation section for `docs/01-module-1-ros2/02-nodes-topics-services.md`
-- [ ] T011 [P] [US3] Generate MCQs section for `docs/01-module-1-ros2/02-nodes-topics-services.md`
-- [ ] T012 [P] Generate Troubleshooting, Summary, Resources sections for `docs/01-module-1-ros2/02-nodes-topics-services.md`
-
----
-
-## Phase 4: Chapter 3 - Building ROS Packages (Priority: P1) [03-building-ros-packages.md]
-
-**Goal**: Generate the `03-building-ros-packages.md` file with full content, `rclpy` code, Roman Urdu comments, and MCQs.
-
-**Independent Test**: Verify the generated `03-building-ros-packages.md` file contains all required sections, code, comments, and MCQs.
-
-### Implementation for Chapter 3
-
-- [ ] T013 [P] [US1] Generate Introduction, Concepts, Setup sections for `docs/01-module-1-ros2/03-building-ros-packages.md`
-- [ ] T014 [P] [US2] Generate `rclpy` code examples for package creation/building/execution with Roman Urdu comments for `docs/01-module-1-ros2/03-building-ros-packages.md`
-- [ ] T015 [P] [US2] Generate Explanation section for `docs/01-module-1-ros2/03-building-ros-packages.md`
-- [ ] T016 [P] [US3] Generate MCQs section for `docs/01-module-1-ros2/03-building-ros-packages.md`
-- [ ] T017 [P] Generate Troubleshooting, Summary, Resources sections for `docs/01-module-1-ros2/03-building-ros-packages.md`
-
----
-
-## Phase 5: Chapter 4 - URDF & Xacro Humanoid (Priority: P1) [04-urdf-xacro-humanoid.md]
-
-**Goal**: Generate the `04-urdf-xacro-humanoid.md` file with full content, URDF/Xacro examples, Roman Urdu comments, and MCQs.
-
-**Independent Test**: Verify the generated `04-urdf-xacro-humanoid.md` file contains all required sections, code, comments, and MCQs.
-
-### Implementation for Chapter 4
-
-- [ ] T018 [P] [US1] Generate Introduction, Concepts, Setup sections for `docs/01-module-1-ros2/04-urdf-xacro-humanoid.md`
-- [ ] T019 [P] [US2] Generate URDF/Xacro examples for humanoid with Roman Urdu comments for `docs/01-module-1-ros2/04-urdf-xacro-humanoid.md`
-- [ ] T020 [P] [US2] Generate Explanation section for `docs/01-module-1-ros2/04-urdf-xacro-humanoid.md`
-- [ ] T021 [P] [US3] Generate MCQs section for `docs/01-module-1-ros2/04-urdf-xacro-humanoid.md`
-- [ ] T022 [P] Generate Troubleshooting, Summary, Resources sections for `docs/01-module-1-ros2/04-urdf-xacro-humanoid.md`
-
----
-
-## Phase 6: Chapter 5 - Launch and Parameters (Priority: P1) [05-launch-and-parameters.md]
-
-**Goal**: Generate the `05-launch-and-parameters.md` file with full content, `rclpy` launch examples, Roman Urdu comments, and MCQs.
-
-**Independent Test**: Verify the generated `05-launch-and-parameters.md` file contains all required sections, code, comments, and MCQs.
-
-### Implementation for Chapter 5
-
-- [ ] T023 [P] [US1] Generate Introduction, Concepts, Setup sections for `docs/01-module-1-ros2/05-launch-and-parameters.md`
-- [ ] T024 [P] [US2] Generate `rclpy` launch file examples with Roman Urdu comments for `docs/01-module-1-ros2/05-launch-and-parameters.md`
-- [ ] T025 [P] [US2] Generate Explanation section for `docs/01-module-1-ros2/05-launch-and-parameters.md`
-- [ ] T026 [P] [US3] Generate MCQs section for `docs/01-module-1-ros2/05-launch-and-parameters.md`
-- [ ] T027 [P] Generate Troubleshooting, Summary, Resources sections for `docs/01-module-1-ros2/05-launch-and-parameters.md`
-
----
-
-## Dependencies & Execution Order
-
-### Phase Dependencies
-
-- **Setup (Phase 1)**: No dependencies - can start immediately
-- **Chapter Phases (Phase 2-6)**: Depend on Setup completion. Can run in parallel.
-
-### Within Each Chapter
-
-- Tasks within each chapter can mostly run in parallel due to distinct content sections, but sequential flow for a single file is logical.
-
-### Parallel Opportunities
-
-- All tasks marked [P] can run in parallel.
-- All chapter content generation (T003-T027) can be done in parallel for different files.
-
----
+## Parallel Execution Examples
+- After T001 is complete, tasks T002-T003 (US1), T004-T010 (US2), T011-T014 (US3), T015-T019 (US4), T020-T024 (US5), T025-T027 (US6), and T028-T031 (US7) can be initiated in parallel.
+- Within Module 1 (US2), tasks T005, T006, T007, T008, T009 can be parallelized after T004.
+- Similar parallel opportunities exist within other modules for drafting content.
 
 ## Implementation Strategy
-
-### Incremental Delivery
-
-1. Complete Phase 1: Setup.
-2. Complete Phase 2: Chapter 1. Test independently. (MVP for Chapter 1)
-3. Complete Phase 3: Chapter 2. Test independently.
-4. ...and so on for subsequent chapters.
-
-### Parallel Team Strategy
-
-With multiple developers:
-
-1. Team completes Setup together.
-2. Once Setup is done:
-   - Developer A: Chapter 1 tasks
-   - Developer B: Chapter 2 tasks
-   - Developer C: Chapter 3 tasks
-   - Developer D: Chapter 4 tasks
-   - Developer E: Chapter 5 tasks
-3. Chapters complete and integrate independently into the documentation structure.
-
----
-
-## Notes
-
-- [P] tasks = different sections/files, mostly independent
-- [Story] label maps task to specific user story for traceability
-- Each chapter should be independently completable and testable for its content generation
-- Commit after each chapter's tasks or logical group
-- Avoid: vague tasks, same file conflicts (by structuring distinct tasks for sections), cross-chapter dependencies that break independence
+- **MVP First:** The initial focus will be on completing the foundational modules (Introduction, ROS 2, Digital Twin) to establish a solid content base.
+- **Incremental Delivery:** Modules will be completed and verified iteratively.
+- **Continuous Integration:** Regular checks for UI integration and navigation functionality will be performed.
+- **Test-Driven Content (where applicable):** For code examples, ensuring they are functional and accurately illustrate concepts will be a priority.

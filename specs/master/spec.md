@@ -14,6 +14,11 @@ project:
   github_repo: "https://github.com/ramesha-javed/physical-ai-textbook-ramesha"
 
 target_score:
+
+## Clarifications
+### Session 2025-12-08
+- Q: What are the unique identification rules for user accounts? → A: Email address
+- Q: What are the expected data volume and scale assumptions for user profiles and content? → A: Low-to-medium scale (thousands of users, moderate data)
   base: 100/100
   bonus_target: 200/200
   total_goal: 300 points

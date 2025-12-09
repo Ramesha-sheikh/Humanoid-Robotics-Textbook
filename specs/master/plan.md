@@ -1,99 +1,104 @@
-# Module 3 - NVIDIA Isaac Sim Planning
+# Implementation Plan: [FEATURE]
 
-## 1. Scope and Dependencies:
+**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
 
-### In Scope:
-- Generation of 4 markdown files for Module 3:
-  - 01-isaac-sim-installation.md
-  - 02-synthetic-data-and-vslam.md
-  - 03-nav2-bipedal-locomotion.md
-  - 04-reinforcement-learning-humanoid.md
-- Each file will contain:
-  - Full 10-section format (Introduction, Concepts, Setup, Code Examples, Explanation, Troubleshooting, Summary, Resources, and MCQs if applicable, though primarily focused on Isaac Sim code).
-  - Runnable Isaac Sim Python API code examples where applicable.
-  - Screenshots placeholders for visual content (as requested by user in initial Module 2 prompt, applying here as well).
-- Creation of the directory `docs/03-module-3-isaac/`.
-- Update `sidebars.js` to include the new Module 3 category and its chapters.
+**Note**: This template is filled in by the `/sp.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
 
-### Out of Scope:
-- Generating content for other modules.
-- Testing the Isaac Sim code for correctness (only generation).
-- Generating solutions for MCQs (only generating the questions).
+## Summary
 
-### External Dependencies:
-- None
+[Extract from feature spec: primary requirement + technical approach from research]
 
-## 2. Key Decisions and Rationale:
+## Technical Context
 
-### Content Generation Strategy:
-- **Option 1 (Chosen):** Generate all sections and code examples directly using LLM capabilities. This provides comprehensive content quickly.
-- **Option 2:** Generate outlines and fill in details iteratively. This would be slower but allow more fine-grained control.
-  - **Rationale:** Given the request for "full format" and "Isaac Sim code examples", direct generation is more efficient.
+<!--
+  ACTION REQUIRED: Replace the content in this section with the technical details
+  for the project. The structure here is presented in advisory capacity to guide
+  the iteration process.
+-->
 
-### Code Example Language:
-- **Decision:** Isaac Sim Python API for code examples.
-  - **Rationale:** User requested Isaac Sim code specifically.
+**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
+**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
+**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
+**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
+**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Project Type**: [single/web/mobile - determines source structure]  
+**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
+**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
+**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
-### File Structure:
-- **Decision:** `docs/03-module-3-isaac/` for module content.
-  - **Rationale:** Clear organization for Docusaurus documentation.
+## Constitution Check
 
-## 3. Interfaces and API Contracts:
+*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-### Public APIs:
-- N/A (Internal content generation)
+[Gates determined based on constitution file]
 
-## 4. Non-Functional Requirements (NFRs) and Budgets:
+## Project Structure
 
-### Performance:
-- Generation speed should be reasonable, but not critical.
+### Documentation (this feature)
 
-### Reliability:
-- Content should be coherent and follow the specified format.
+```text
+specs/[###-feature]/
+├── plan.md              # This file (/sp.plan command output)
+├── research.md          # Phase 0 output (/sp.plan command)
+├── data-model.md        # Phase 1 output (/sp.plan command)
+├── quickstart.md        # Phase 1 output (/sp.plan command)
+├── contracts/           # Phase 1 output (/sp.plan command)
+└── tasks.md             # Phase 2 output (/sp.tasks command - NOT created by /sp.plan)
+```
 
-### Security:
-- N/A (No sensitive data or external interactions)
+### Source Code (repository root)
+<!--
+  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
+  for this feature. Delete unused options and expand the chosen structure with
+  real paths (e.g., apps/admin, packages/something). The delivered plan must
+  not include Option labels.
+-->
 
-## 5. Data Management and Migration:
+```text
+# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+src/
+├── models/
+├── services/
+├── cli/
+└── lib/
 
-### Source of Truth:
-- The generated markdown files will be the source of truth for the documentation.
+tests/
+├── contract/
+├── integration/
+└── unit/
 
-## 6. Operational Readiness:
+# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+backend/
+├── src/
+│   ├── models/
+│   ├── services/
+│   └── api/
+└── tests/
 
-### Observability:
-- N/A
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   └── services/
+└── tests/
 
-### Alerting:
-- N/A
+# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+api/
+└── [same as backend above]
 
-### Deployment and Rollback strategies:
-- Manual deployment to Docusaurus (user responsibility)
+ios/ or android/
+└── [platform-specific structure: feature modules, UI flows, platform tests]
+```
 
-### Feature Flags and compatibility:
-- N/A
+**Structure Decision**: [Document the selected structure and reference the real
+directories captured above]
 
-## 7. Risk Analysis and Mitigation:
+## Complexity Tracking
 
-### Top 3 Risks:
-1. **Inaccurate/Irrelevant Content:**
-   - **Mitigation:** Ensure clear, detailed prompts for content generation; instruct LLM to adhere to Isaac Sim best practices.
-2. **Incorrect Isaac Sim code:**
-   - **Mitigation:** Focus on producing syntactically correct and conceptually sound code, even if not fully tested.
-3. **Improper `sidebars.js` update:**
-   - **Mitigation:** Validate the `sidebars.js` update against Docusaurus's expected format.
+> **Fill ONLY if Constitution Check has violations that must be justified**
 
-## 8. Evaluation and Validation:
-
-### Definition of Done:
-- All 4 markdown files generated in the correct directory.
-- Each file adheres to the 10-section format.
-- Isaac Sim code examples are present.
-- Screenshots placeholders are present.
-- `sidebars.js` is correctly updated.
-
-### Output Validation for format/requirements/safety:
-- Manual review of generated content and `sidebars.js`.
-
-## 9. Architectural Decision Record (ADR):
-- No significant architectural decisions requiring an ADR at this stage.
+| Violation | Why Needed | Simpler Alternative Rejected Because |
+|-----------|------------|-------------------------------------|
+| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
+| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
