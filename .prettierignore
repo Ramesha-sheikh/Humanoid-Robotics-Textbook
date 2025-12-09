@@ -1,0 +1,7 @@
+# Prettierignore
+node_modules/
+build/
+dist/
+.docusaurus/
+.cache/
+public/

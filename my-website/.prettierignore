@@ -1,0 +1,11 @@
+# Docusaurus specific ignores
+build/
+.docusaurus/
+
+# Standard ignore files
+node_modules/
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

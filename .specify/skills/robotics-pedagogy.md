@@ -1,0 +1,1 @@
+<!-- Placeholder for Robotics Pedagogy Skill documentation -->

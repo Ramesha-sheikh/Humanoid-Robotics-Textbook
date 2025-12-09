@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git fetch:*)",
+      "WebSearch",
+      "Bash(npm start)",
+      "Bash(npm cache clean:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

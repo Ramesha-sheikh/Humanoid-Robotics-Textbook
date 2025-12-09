@@ -1,0 +1,141 @@
+/**
+<<<<<<< HEAD
+ * Any CSS you add here will be applied to all pages of your Docusaurus site.
+=======
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+>>>>>>> a7d920193ce792bf5b2c8e211d93c297f7161419
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+<<<<<<< HEAD
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For dark mode in code blocks (Dracula theme for Prism.js) */
+html[data-theme='dark'] {
+  --ifm-background-color: #282a36; /* Dracula background */
+  --ifm-code-background: #282a36; /* Dracula background for code blocks */
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* Dracula theme colors for syntax highlighting */
+  --prism-color: #f8f8f2;
+  --prism-comment: #6272a4;
+  --prism-string: #f1fa8c;
+  --prism-constant: #bd93f9;
+  --prism-builtin: #50fa7b;
+  --prism-number: #bd93f9;
+  --prism-selector: #50fa7b;
+  --prism-tag: #ff79c6;
+  --prism-function: #50fa7b;
+  --prism-keyword: #ff79c6;
+  --prism-property: #ff79c6;
+  --prism-variable: #50fa7b;
+  --prism-punctuation: #f8f8f2;
+  --prism-doctype: #6272a4;
+  --prism-class-name: #50fa7b;
+  --prism-atrule: #ff79c6;
+  --prism-url: #8be9fd;
+  --prism-operator: #ff79c6;
+  --prism-important: #ff79c6;
+  --prism-regex: #f1fa8c;
+  --prism-changed: #ff79c6;
+  --prism-deleted: #ff5555;
+  --prism-inserted: #50fa7b;
+}
+
+/* Ensure external links open in a new tab and have an icon */
+a[target="_blank"]:not(.navbar__item):not(.button)::after {
+  content: '  besucht'; /* Unicode for external link icon */
+  display: inline-block;
+  margin-left: 0.25em;
+  font-size: 0.8em;
+  vertical-align: super;
+  color: inherit;
+  /* You might want to use a background image for an SVG icon instead */
+=======
+  --ifm-color-primary: #0d9488; /* Soft teal */
+  --ifm-color-primary-dark: #0d9488;
+  --ifm-color-primary-darker: #0d9488;
+  --ifm-color-primary-darkest: #0d9488;
+  --ifm-color-primary-light: #0d9488;
+  --ifm-color-primary-lighter: #0d9488;
+  --ifm-color-primary-lightest: #0d9488;
+
+  --ifm-color-accent: #fbbf24; /* Light gold */
+  --ifm-font-color-base: #1e293b; /* Dark gray for text */
+
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Glass effect variables */
+  --glass-background: rgba(255, 255, 255, 0.25);
+  --glass-backdrop-filter: blur(12px);
+  --glass-border: 1px solid rgba(255,255,255,0.18);
+  --glass-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  background-color: #f8fafc; /* Very light gray/soft white background */
+  color: black; /* Text color set to black */
+  font-family: 'Inter', sans-serif;
+}
+
+
+/* Base class for glass card elements */
+.glass-card {
+  background: var(--glass-background);
+  backdrop-filter: var(--glass-backdrop-filter);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 8px; /* Example border-radius, can be adjusted */
+}
+
+.navbar {
+  background: var(--glass-background);
+  backdrop-filter: var(--glass-backdrop-filter);
+  border-bottom: var(--glass-border); /* Apply border to bottom for navbar */
+  box-shadow: var(--glass-shadow);
+}
+
+footer {
+  background: black; /* Footer background black */
+  backdrop-filter: var(--glass-backdrop-filter);
+  border-top: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+
+.card {
+  background: var(--glass-background);
+  backdrop-filter: var(--glass-backdrop-filter);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 8px; /* Consistent with glass-card */
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* NOTE: As per spec, we are only implementing light mode, so dark mode styles are removed or simplified */
+[data-theme='dark'] {
+  --ifm-color-primary: #0d9488; /* Soft teal */
+  --ifm-color-primary-dark: #0d9488;
+  --ifm-color-primary-darker: #0d9488;
+  --ifm-color-primary-darkest: #0d9488;
+  --ifm-color-primary-light: #0d9488;
+  --ifm-color-primary-lighter: #0d9488;
+  --ifm-color-primary-lightest: #0d9488;
+  --ifm-font-color-base: #020407; /* Dark gray for text */
+  --docusaurus-highlighted-code-line-bg: rgba(146, 13, 13, 0.1);
+  background-color: #f8fafc; /* Keep light background even in dark mode for now */
+>>>>>>> a7d920193ce792bf5b2c8e211d93c297f7161419
+}
