@@ -8,7 +8,7 @@ build/
 .env*
 .docusaurus/
 .cache/
-public/
+
 
 # Python
 __pycache__/
