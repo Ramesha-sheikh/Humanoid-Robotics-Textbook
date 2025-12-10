@@ -71,6 +71,7 @@ spec-kit-rag-chatbot/
 5.  LLM: Groq (llama-3.1-70b-instant primary) → fallback gpt-4o-mini
 6.  Frontend: Pure Docusaurus 3 – NO Next.js
 7.  Chat UI: Embedded React component inside Docusaurus (right sidebar or floating bubble)
+8.  Responsive UI: The UI must be fully responsive for both mobile and desktop, adapting seamlessly to different screen sizes and orientations.
 8.  Code Style: Clean Python OOP, Pydantic v2 models, proper typing, async/await everywhere
 9.  Full SpecKit Plus workflow must be followed – no shortcuts
 10. Zero vibe coding – every step documented

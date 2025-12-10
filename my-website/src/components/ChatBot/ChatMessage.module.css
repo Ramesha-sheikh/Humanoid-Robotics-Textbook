@@ -1,0 +1,155 @@
+/* ChatMessage Styles */
+
+.message {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background: var(--ifm-color-emphasis-200);
+}
+
+.user .avatar {
+  background: var(--ifm-color-primary-lighter);
+}
+
+.assistant .avatar {
+  background: var(--ifm-color-success-lighter);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.text {
+  background: var(--ifm-color-emphasis-100);
+  padding: 12px 16px;
+  border-radius: 12px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.user .text {
+  background: var(--ifm-color-primary);
+  color: white;
+  margin-left: auto;
+  max-width: 80%;
+}
+
+.assistant .text {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-font-color-base);
+}
+
+.cursor {
+  display: inline-block;
+  animation: blink 1s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+.sources {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 8px;
+  border-left: 3px solid var(--ifm-color-success);
+}
+
+.sourcesLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 6px;
+}
+
+.sourceChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sourceChip {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--ifm-color-success-contrast-background);
+  border: 1px solid var(--ifm-color-success);
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ifm-color-success-dark);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sourceChip:hover {
+  background: var(--ifm-color-success);
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Dark mode support */
+[data-theme='dark'] .text {
+  background: var(--ifm-color-emphasis-300);
+}
+
+[data-theme='dark'] .assistant .text {
+  background: var(--ifm-color-emphasis-400);
+}
+
+[data-theme='dark'] .sources {
+  background: var(--ifm-color-emphasis-300);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .text {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .user .text {
+    max-width: 85%;
+  }
+
+  .sourceChip {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+}
