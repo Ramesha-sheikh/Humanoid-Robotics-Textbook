@@ -9,20 +9,14 @@ import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container glass-card">
-        <Heading as="h1" className="hero__title">
-         Physical AI & Humanoid Robotics Book
-        </Heading>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/introduction">
-            "Learn Physical AI & Humanoid Robotics to work with intelligent agents and robots of the future."
-          </Link>
-        </div>
+    <header className={styles.heroBanner}>
+      <div className={styles.bannerContainer}>
+        <img
+          src="/img/banner.png"
+          alt="Physical AI & Humanoid Robotics"
+          className={styles.bannerImage}
+        />
       </div>
     </header>
   );

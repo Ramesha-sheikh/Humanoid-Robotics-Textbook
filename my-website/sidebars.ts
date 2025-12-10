@@ -78,18 +78,6 @@ const sidebars: SidebarsConfig = {
         id: 'module-4-vla/whisper-for-commands',
       },
     },
-    {
-      type: 'category',
-      label: 'Capstone Project',
-      items: [
-        'capstone/end-to-end-robot-pipeline',
-        'capstone/index',
-      ],
-      link: {
-        type: 'doc',
-        id: 'capstone/end-to-end-robot-pipeline',
-      },
-    },
   ],
 };
 

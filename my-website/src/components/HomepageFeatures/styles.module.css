@@ -9,3 +9,33 @@
   height: 200px;
   width: 200px;
 }
+
+/* Mobile responsiveness for features */
+@media screen and (max-width: 996px) {
+  .features {
+    padding: 1.5rem 0;
+  }
+
+  .featureSvg {
+    height: 150px;
+    width: 150px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .features {
+    padding: 1rem 0;
+  }
+
+  .featureSvg {
+    height: 120px;
+    width: 120px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .featureSvg {
+    height: 100px;
+    width: 100px;
+  }
+}

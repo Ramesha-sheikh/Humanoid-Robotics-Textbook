@@ -62,8 +62,8 @@ const config: Config = {
     navbar: {
       title: 'Physical AI & Humanoid Robotics',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'Physical AI & Humanoid Robotics Logo',
+        src: 'img/logo.png',
       },
       items: [
         {
@@ -74,7 +74,7 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/Ramesha-sheikh',
           label: 'GitHub',
           position: 'right',
         },
@@ -84,46 +84,58 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Learn',
           items: [
+            {
+              label: 'Introduction',
+              to: '/docs/introduction',
+            },
             {
               label: 'Tutorial',
               to: '/docs/introduction',
             },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
             {
               label: 'Blog',
               to: '/blog',
             },
+          ],
+        },
+        {
+          title: 'Connect',
+          items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/Ramesha-sheikh',
+            },
+            {
+              label: 'LinkedIn',
+              href: 'https://www.linkedin.com/in/rameesha20/',
+            },
+            {
+              label: 'Facebook',
+              href: 'https://www.facebook.com/ramesha.javed.2025',
+            },
+          ],
+        },
+        {
+          title: 'Resources',
+          items: [
+            {
+              label: 'Physical AI',
+              to: '/docs/introduction',
+            },
+            {
+              label: 'Humanoid Robotics',
+              to: '/docs/introduction',
+            },
+            {
+              label: 'Tutorials',
+              to: '/docs/introduction',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics Textbook. Built with passion for robotics education.`,
     },
     prism: {
       theme: prismThemes.github,
