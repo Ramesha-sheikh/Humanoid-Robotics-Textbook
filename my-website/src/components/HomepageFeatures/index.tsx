@@ -2,51 +2,50 @@ import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
+import Link from '@docusaurus/Link';
+import { FaRobot, FaCubes, FaGamepad } from 'react-icons/fa';
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
+  Icon: React.ComponentType<React.ComponentProps<'svg'>>;
   description: ReactNode;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Comprehensive Introduction to ROS2',
+    Icon: FaRobot,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Dive deep into the Robot Operating System 2 (ROS2), the industry-standard framework for robotics. Learn the core concepts, from nodes and topics to services and actions, and build a solid foundation for developing complex robot behaviors.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Build Your Own Digital Twin',
+    Icon: FaCubes,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Create a detailed virtual model of a humanoid robot from scratch. Master the use of URDF and Xacro to define the robot's physical properties, and learn how to assemble a complete digital twin for simulation and testing.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Simulate and Control',
+    Icon: FaGamepad,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Bring your robot to life in a simulated environment. Use Gazebo to test and refine your robot's movements and interactions. Learn how to develop and implement control strategies in ROS2 to make your humanoid robot walk, grasp, and perform tasks.
       </>
     ),
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({title, Icon, description}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx('col col--4', styles.feature)}>
       <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
+        <Icon className={styles.featureIcon} role="img" />
       </div>
       <div className="text--center padding-horiz--md">
         <Heading as="h3">{title}</Heading>
@@ -64,6 +63,15 @@ export default function HomepageFeatures(): ReactNode {
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />
           ))}
+        </div>
+        <div className="row">
+          <div className={clsx('col col--12', styles.buttonContainer)}>
+            <Link
+              className="button button--secondary button--lg"
+              to="/docs/introduction">
+              Read the Book
+            </Link>
+          </div>
         </div>
       </div>
     </section>
