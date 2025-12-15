@@ -4,13 +4,13 @@
  */
 
 import React from 'react';
-// import ChatBot from '../components/ChatBot';
+import RagChatbot from '../components/RagChatbot';
 
 export default function Root({ children }): JSX.Element {
   return (
     <>
       {children}
-      {/* <ChatBot /> */}
+      <RagChatbot />
     </>
   );
 }

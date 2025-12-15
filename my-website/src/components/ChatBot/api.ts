@@ -3,31 +3,18 @@
  * Connects to FastAPI backend with streaming support
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_BASE_URL = 'http://localhost:8001';
 
 export interface ChatRequest {
-  query: string;
-  mode: 'normal' | 'highlight';
-  highlight_context?: {
-    text: string;
-    startPage: number;
-    endPage: number;
-    chapterSlug: string;
-  };
-}
-
-export interface Source {
-  chapter: string;
-  section: string;
-  page: number;
+  question: string;
+  selected_text?: string;
 }
 
 export interface ChatResponse {
   answer: string;
-  sources: Source[];
-  latency_ms: number;
-  mode: string;
+  sources: string[];
 }
+
 
 export interface StreamChunk {
   token: string;
@@ -38,13 +25,14 @@ export interface StreamChunk {
 /**
  * Send chat request and get complete response (non-streaming)
  */
-export async function sendChatMessage(request: ChatRequest): Promise<ChatResponse> {
+export async function sendChatMessage(question: string, selected_text?: string): Promise<ChatResponse> {
+  const requestBody = { question, selected_text };
   const response = await fetch(`${API_BASE_URL}/chat`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(request),
+    body: JSON.stringify(requestBody),
   });
 
   if (!response.ok) {
@@ -57,13 +45,14 @@ export async function sendChatMessage(request: ChatRequest): Promise<ChatRespons
 /**
  * Send chat request and stream response tokens via SSE
  */
-export async function* streamChatMessage(request: ChatRequest): AsyncGenerator<StreamChunk> {
+export async function* streamChatMessage(question: string, selected_text?: string): AsyncGenerator<StreamChunk> {
+  const requestBody = { question, selected_text };
   const response = await fetch(`${API_BASE_URL}/chat/stream`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(request),
+    body: JSON.stringify(requestBody),
   });
 
   if (!response.ok) {
