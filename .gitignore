@@ -19,9 +19,8 @@ venv/
 .mypy_cache/
 
 # Docker
-Dockerfile.local
-.dockerignore
 
+.env.local
 # IDEs and OS
 .DS_Store
 Thumbs.db

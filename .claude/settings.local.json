@@ -5,7 +5,8 @@
       "WebSearch",
       "Bash(npm start)",
       "Bash(npm cache clean:*)",
-      "Bash(npm start:*)"
+      "Bash(npm start:*)",
+      "WebFetch(domain:humanoid-robotics-textbook-psi.vercel.app)"
     ],
     "deny": [],
     "ask": []

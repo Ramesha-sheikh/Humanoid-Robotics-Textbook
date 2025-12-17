@@ -3,48 +3,44 @@
  * Connects to FastAPI backend with streaming support
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_BASE_URL = 'http://localhost:8001';
 
 export interface ChatRequest {
-  query: string;
-  mode: 'normal' | 'highlight';
-  highlight_context?: {
-    text: string;
-    startPage: number;
-    endPage: number;
-    chapterSlug: string;
-  };
+  question: string;
+  selected_text?: string;
 }
 
 export interface Source {
-  chapter: string;
-  section: string;
-  page: number;
+  chapter?: string;
+  section?: string;
+  page?: string;
+  url?: string;
 }
 
 export interface ChatResponse {
   answer: string;
   sources: Source[];
-  latency_ms: number;
-  mode: string;
 }
 
+
 export interface StreamChunk {
-  token: string;
+  token?: string;
   done: boolean;
   error?: string;
+  response?: ChatResponse;
 }
 
 /**
  * Send chat request and get complete response (non-streaming)
  */
-export async function sendChatMessage(request: ChatRequest): Promise<ChatResponse> {
+export async function sendChatMessage(question: string, selected_text?: string): Promise<ChatResponse> {
+  const requestBody = { question, selected_text };
   const response = await fetch(`${API_BASE_URL}/chat`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(request),
+    body: JSON.stringify(requestBody),
   });
 
   if (!response.ok) {
@@ -57,13 +53,14 @@ export async function sendChatMessage(request: ChatRequest): Promise<ChatRespons
 /**
  * Send chat request and stream response tokens via SSE
  */
-export async function* streamChatMessage(request: ChatRequest): AsyncGenerator<StreamChunk> {
-  const response = await fetch(`${API_BASE_URL}/chat/stream`, {
+export async function* streamChatMessage(question: string, selected_text?: string): AsyncGenerator<StreamChunk> {
+  const requestBody = { question, selected_text };
+  const response = await fetch(`${API_BASE_URL}/stream-chat`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(request),
+    body: JSON.stringify(requestBody),
   });
 
   if (!response.ok) {
@@ -96,11 +93,25 @@ export async function* streamChatMessage(request: ChatRequest): AsyncGenerator<S
         const data = line.slice(6); // Remove "data: " prefix
 
         try {
-          const chunk: StreamChunk = JSON.parse(data);
-          yield chunk;
+          const parsedData = JSON.parse(data);
 
-          if (chunk.done || chunk.error) {
+          // Handle both token chunks and final response chunks
+          if (parsedData.done && parsedData.response) {
+            // This is the final chunk with full response
+            const finalChunk: StreamChunk = {
+              done: true,
+              response: JSON.parse(parsedData.response) // Parse the response from string to object
+            };
+            yield finalChunk;
             return;
+          } else {
+            // This is a regular token chunk
+            const chunk: StreamChunk = parsedData;
+            yield chunk;
+
+            if (chunk.done || chunk.error) {
+              return;
+            }
           }
         } catch (e) {
           console.error('Failed to parse SSE message:', data, e);

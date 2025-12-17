@@ -3,8 +3,7 @@
  * Floating button to open/close chatbot
  */
 
-import React from 'react';
-import styles from './FloatingChatButton.module.css';
+import React, { JSX } from 'react';
 
 export interface FloatingChatButtonProps {
   onClick: () => void;
@@ -17,17 +16,17 @@ export default function FloatingChatButton({
 }: FloatingChatButtonProps): JSX.Element {
   return (
     <button
-      className={`${styles.button} ${isOpen ? styles.open : ''}`}
+      className={`floating-chat-button ${isOpen ? 'floating-chat-button-open' : ''}`}
       onClick={onClick}
       aria-label={isOpen ? 'Close chat' : 'Open chat'}
       title={isOpen ? 'Close chat' : 'Ask the textbook chatbot'}
     >
       {isOpen ? (
-        <span className={styles.icon}>✖️</span>
+        <span className="floating-chat-icon">✖️</span>
       ) : (
-        <span className={styles.icon}>💬</span>
+        <span className="floating-chat-icon">💬</span>
       )}
-      {!isOpen && <span className={styles.badge}>AI</span>}
+      {!isOpen && <span className="floating-chat-badge">AI</span>}
     </button>
   );
 }
