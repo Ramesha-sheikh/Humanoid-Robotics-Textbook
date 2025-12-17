@@ -3,7 +3,7 @@
  * Main export with floating button and chat window
  */
 
-import React, { useState } from 'react';
+import React, { JSX, useState } from 'react';
 import ChatWindow from './ChatWindow';
 import FloatingChatButton from './FloatingChatButton';
 

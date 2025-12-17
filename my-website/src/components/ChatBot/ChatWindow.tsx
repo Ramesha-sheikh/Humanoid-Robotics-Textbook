@@ -79,17 +79,32 @@ export default function ChatWindow({ isOpen, onClose, selectedTextContext, onSen
         }
 
         if (chunk.done) {
+          if (chunk.response) {
+            // Use the response from the final chunk instead of accumulated tokens
+            assistantMessage.content = chunk.response.answer;
+
+            // Convert string sources to Source objects if needed
+            if (chunk.response.sources) {
+              // Check if sources are already in the correct format (Source objects)
+              if (chunk.response.sources.length > 0 && typeof chunk.response.sources[0] === 'string') {
+                // Sources are strings, convert to Source objects with URL
+                assistantMessage.sources = (chunk.response.sources as string[]).map(url => ({ url }));
+              } else {
+                // Sources are already Source objects
+                assistantMessage.sources = chunk.response.sources as any;
+              }
+            }
+          }
           assistantMessage.isStreaming = false;
-          const finalResponse: ChatResponse = JSON.parse(assistantMessage.content); // Assuming last chunk is full response
-          assistantMessage.content = finalResponse.answer;
-          assistantMessage.sources = finalResponse.sources;
           setMessages((prev) => [...prev.slice(0, -1), { ...assistantMessage }]);
           break;
         }
 
         // Append token to message
-        assistantMessage.content += chunk.token;
-        setMessages((prev) => [...prev.slice(0, -1), { ...assistantMessage }]);
+        if (chunk.token) {
+          assistantMessage.content += chunk.token;
+          setMessages((prev) => [...prev.slice(0, -1), { ...assistantMessage }]);
+        }
       }
     } catch (error) {
       assistantMessage.content = `❌ Connection error: ${error.message}. Make sure the backend is running at http://localhost:8001`;

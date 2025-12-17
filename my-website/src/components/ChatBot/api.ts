@@ -10,16 +10,24 @@ export interface ChatRequest {
   selected_text?: string;
 }
 
+export interface Source {
+  chapter?: string;
+  section?: string;
+  page?: string;
+  url?: string;
+}
+
 export interface ChatResponse {
   answer: string;
-  sources: string[];
+  sources: Source[];
 }
 
 
 export interface StreamChunk {
-  token: string;
+  token?: string;
   done: boolean;
   error?: string;
+  response?: ChatResponse;
 }
 
 /**
@@ -47,7 +55,7 @@ export async function sendChatMessage(question: string, selected_text?: string):
  */
 export async function* streamChatMessage(question: string, selected_text?: string): AsyncGenerator<StreamChunk> {
   const requestBody = { question, selected_text };
-  const response = await fetch(`${API_BASE_URL}/chat/stream`, {
+  const response = await fetch(`${API_BASE_URL}/stream-chat`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -85,11 +93,25 @@ export async function* streamChatMessage(question: string, selected_text?: strin
         const data = line.slice(6); // Remove "data: " prefix
 
         try {
-          const chunk: StreamChunk = JSON.parse(data);
-          yield chunk;
+          const parsedData = JSON.parse(data);
 
-          if (chunk.done || chunk.error) {
+          // Handle both token chunks and final response chunks
+          if (parsedData.done && parsedData.response) {
+            // This is the final chunk with full response
+            const finalChunk: StreamChunk = {
+              done: true,
+              response: JSON.parse(parsedData.response) // Parse the response from string to object
+            };
+            yield finalChunk;
             return;
+          } else {
+            // This is a regular token chunk
+            const chunk: StreamChunk = parsedData;
+            yield chunk;
+
+            if (chunk.done || chunk.error) {
+              return;
+            }
           }
         } catch (e) {
           console.error('Failed to parse SSE message:', data, e);

@@ -1,0 +1,9 @@
+# .eslintignore for Docusaurus Frontend (Node.js/TypeScript)
+
+node_modules/
+build/
+dist/
+.docusaurus/
+.cache/
+public/
+*.min.js

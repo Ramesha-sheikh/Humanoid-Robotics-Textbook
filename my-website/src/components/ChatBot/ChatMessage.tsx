@@ -36,11 +36,21 @@ export default function ChatMessage({
           <div className={styles.sources}>
             <div className={styles.sourcesLabel}>📚 Sources:</div>
             <div className={styles.sourceChips}>
-              {sources.map((source, idx) => (
-                <span key={idx} className={styles.sourceChip}>
-                  Ch. {source.chapter}, Sec. {source.section}, p.{source.page}
-                </span>
-              ))}
+              {sources.map((source, idx) => {
+                // Create a readable source string based on available properties
+                const sourceParts = [];
+                if (source.chapter) sourceParts.push(`Ch. ${source.chapter}`);
+                if (source.section) sourceParts.push(`Sec. ${source.section}`);
+                if (source.page) sourceParts.push(`p.${source.page}`);
+                if (source.url) sourceParts.push(source.url);
+
+                const sourceText = sourceParts.length > 0 ? sourceParts.join(', ') : 'Source';
+                return (
+                  <span key={idx} className={styles.sourceChip}>
+                    {sourceText}
+                  </span>
+                );
+              })}
             </div>
           </div>
         )}
