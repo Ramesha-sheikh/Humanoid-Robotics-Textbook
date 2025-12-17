@@ -169,8 +169,8 @@ export default function ChatWindow({ isOpen, onClose, selectedTextContext, onSen
 
       {/* Footer */}
       <div className="chat-footer">
-        <span className="chat-footer-text">
-          Powered by Cohere Command R+ ⚡
+        <span className="chat-footer-text ">
+        POWER BY AI
         </span>
       </div>
     </div>
