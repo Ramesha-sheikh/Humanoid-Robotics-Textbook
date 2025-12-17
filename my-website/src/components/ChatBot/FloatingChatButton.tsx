@@ -4,7 +4,6 @@
  */
 
 import React, { JSX } from 'react';
-// import styles from './FloatingChatButton.module.css'; // Removed as we are using global CSS
 
 export interface FloatingChatButtonProps {
   onClick: () => void;

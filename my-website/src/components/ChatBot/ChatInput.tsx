@@ -4,7 +4,6 @@
  */
 
 import React, { useState, KeyboardEvent } from 'react';
-import styles from './ChatInput.module.css';
 
 export interface ChatInputProps {
   onSend: (message: string) => void;
@@ -35,9 +34,9 @@ export default function ChatInput({
   };
 
   return (
-    <div className={styles.inputContainer}>
+    <div className="chat-input-container">
       <textarea
-        className={styles.input}
+        className="chat-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
@@ -48,13 +47,13 @@ export default function ChatInput({
       />
 
       <button
-        className={styles.sendButton}
+        className="chat-send-button"
         onClick={handleSend}
         disabled={disabled || !input.trim()}
         aria-label="Send message"
       >
         {disabled ? (
-          <span className={styles.spinner}>⏳</span>
+          <span className="chat-spinner">⏳</span>
         ) : (
           <span>📤</span>
         )}

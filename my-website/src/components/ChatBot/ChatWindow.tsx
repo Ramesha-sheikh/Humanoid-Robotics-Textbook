@@ -7,7 +7,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import { streamChatMessage, type ChatResponse } from './api';
-// import styles from './ChatWindow.module.css'; // Removed as we are using global CSS
 
 export interface Message {
   role: 'user' | 'assistant';
@@ -131,7 +130,6 @@ export default function ChatWindow({ isOpen, onClose, selectedTextContext, onSen
   console.log('ChatWindow: isOpen is true, attempting to render.');
 
   return (
-    // Use global CSS class
     <div className="chat-window-container" onClick={(e) => e.stopPropagation()}>
       {/* Header */}
       <div className="chat-window-header">

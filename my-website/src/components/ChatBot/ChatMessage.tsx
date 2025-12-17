@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import styles from './ChatMessage.module.css';
 import type { Source } from './api';
 
 export interface ChatMessageProps {
@@ -21,21 +20,21 @@ export default function ChatMessage({
   isStreaming = false,
 }: ChatMessageProps): JSX.Element {
   return (
-    <div className={`${styles.message} ${styles[role]}`}>
-      <div className={styles.avatar}>
+    <div className={`chat-message ${role}`}>
+      <div className="chat-avatar">
         {role === 'user' ? '👤' : '🤖'}
       </div>
 
-      <div className={styles.content}>
-        <div className={styles.text}>
+      <div className="chat-content">
+        <div className="chat-text">
           {content}
-          {isStreaming && <span className={styles.cursor}>▌</span>}
+          {isStreaming && <span className="chat-cursor">▌</span>}
         </div>
 
         {sources && sources.length > 0 && (
-          <div className={styles.sources}>
-            <div className={styles.sourcesLabel}>📚 Sources:</div>
-            <div className={styles.sourceChips}>
+          <div className="chat-sources">
+            <div className="chat-sources-label">📚 Sources:</div>
+            <div className="chat-source-chips">
               {sources.map((source, idx) => {
                 // Create a readable source string based on available properties
                 const sourceParts = [];
@@ -46,7 +45,7 @@ export default function ChatMessage({
 
                 const sourceText = sourceParts.length > 0 ? sourceParts.join(', ') : 'Source';
                 return (
-                  <span key={idx} className={styles.sourceChip}>
+                  <span key={idx} className="chat-source-chip">
                     {sourceText}
                   </span>
                 );
