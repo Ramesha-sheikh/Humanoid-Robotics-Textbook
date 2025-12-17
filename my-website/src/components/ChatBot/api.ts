@@ -3,7 +3,15 @@
  * Connects to FastAPI backend with streaming support
  */
 
-const API_BASE_URL = 'http://localhost:8001';
+// Use environment-based URL for backend
+// For Docusaurus, you'll need to update this to your actual deployed backend URL when not running locally
+let API_BASE_URL = 'http://localhost:8001'; // Default for local development
+
+// Update this to your actual deployed backend URL
+if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+  // Production URL - UPDATE THIS TO YOUR DEPLOYED BACKEND URL
+  API_BASE_URL = 'https://your-actual-backend-url.onrender.com'; // Example: you can also use 'https://your-app-name.vercel.app' if deployed separately
+}
 
 export interface ChatRequest {
   question: string;
