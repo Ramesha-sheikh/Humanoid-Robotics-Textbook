@@ -49,18 +49,84 @@
   border-radius: 12px;
   line-height: 1.6;
   word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Custom scrollbar for message text */
+.text::-webkit-scrollbar {
+  width: 6px;
+}
+
+.text::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.text::-webkit-scrollbar-thumb {
+  background: var(--ifm-color-emphasis-400);
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+
+.text::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-emphasis-600);
+}
+
+/* Visual indicator for scrollable content */
+.assistant .text::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(to bottom, transparent, var(--ifm-color-emphasis-200));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.assistant .text:hover::after {
+  opacity: 0.7;
+}
+
+/* Scrollable indicator for user messages */
+.user .text::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(to bottom, transparent, var(--ifm-color-primary));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.user .text:hover::after {
+  opacity: 0.5;
 }
 
 .user .text {
   background: var(--ifm-color-primary);
   color: white;
   margin-left: auto;
-  max-width: 80%;
+  max-width: 75%;
+  min-width: 100px;
 }
 
 .assistant .text {
   background: var(--ifm-color-emphasis-200);
   color: var(--ifm-font-color-base);
+  max-width: 90%;
+  min-width: 150px;
 }
 
 .cursor {
@@ -123,8 +189,24 @@
   background: var(--ifm-color-emphasis-300);
 }
 
+[data-theme='dark'] .text::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='dark'] .text::-webkit-scrollbar-thumb {
+  background: var(--ifm-color-emphasis-600);
+}
+
+[data-theme='dark'] .text::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-emphasis-800);
+}
+
 [data-theme='dark'] .assistant .text {
   background: var(--ifm-color-emphasis-400);
+}
+
+[data-theme='dark'] .assistant .text::after {
+  background: linear-gradient(to bottom, transparent, var(--ifm-color-emphasis-400));
 }
 
 [data-theme='dark'] .sources {
@@ -133,6 +215,11 @@
 
 /* Mobile responsive */
 @media (max-width: 768px) {
+  .message {
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
   .avatar {
     width: 32px;
     height: 32px;
@@ -142,14 +229,78 @@
   .text {
     font-size: 14px;
     padding: 10px 14px;
+    line-height: 1.5;
+    max-height: 350px;
   }
 
   .user .text {
-    max-width: 85%;
+    max-width: 80%;
+    min-width: 80px;
+  }
+
+  .assistant .text {
+    max-width: 92%;
+    min-width: 120px;
   }
 
   .sourceChip {
     font-size: 10px;
     padding: 3px 8px;
+  }
+
+  .sources {
+    padding: 6px 10px;
+  }
+
+  .sourcesLabel {
+    font-size: 11px;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .message {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+
+  .text {
+    font-size: 14px;
+    padding: 9px 12px;
+    line-height: 1.5;
+    border-radius: 10px;
+    max-height: 300px;
+  }
+
+  .user .text {
+    max-width: 85%;
+    min-width: 70px;
+    border-radius: 10px 10px 2px 10px;
+  }
+
+  .assistant .text {
+    max-width: 94%;
+    min-width: 100px;
+    border-radius: 10px 10px 10px 2px;
+  }
+
+  .sourceChip {
+    font-size: 9px;
+    padding: 3px 7px;
+  }
+
+  .sources {
+    padding: 6px 8px;
+    margin-top: 6px;
+  }
+
+  .sourcesLabel {
+    font-size: 10px;
   }
 }

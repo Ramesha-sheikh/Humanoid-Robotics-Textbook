@@ -18,9 +18,10 @@
   resize: none;
   min-height: 44px;
   max-height: 120px;
-  transition: border-color 0.2s;
+  transition: all 0.2s ease;
   background: var(--ifm-background-color);
   color: var(--ifm-font-color-base);
+  line-height: 1.5;
 }
 
 .input:focus {
@@ -100,6 +101,28 @@
     width: 44px;
     height: 44px;
     font-size: 18px;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .inputContainer {
+    padding: 10px 12px;
+    gap: 6px;
+  }
+
+  .input {
+    font-size: 16px; /* Prevents iOS zoom */
+    padding: 9px 12px;
+    min-height: 42px;
+    border-radius: 10px;
+  }
+
+  .sendButton {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+    border-radius: 10px;
   }
 }
 

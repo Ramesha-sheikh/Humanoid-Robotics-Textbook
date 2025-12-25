@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini API Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .input-group {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        .model-item {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 3px;
+        }
+        .model-success {
+            background: #d4edda;
+        }
+        .model-fail {
+            background: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Gemini API Model Tester</h1>
+        <p style="text-align: center; color: #666;">
+            Yeh tool check karega ke aapki API key ke saath kaunse models kaam kar rahe hain
+        </p>
+
+        <div class="input-group">
+            <label for="apiKey">Gemini API Key:</label>
+            <input type="password" id="apiKey" placeholder="AIzaSy...">
+        </div>
+
+        <button onclick="testAllModels()" id="testBtn">Test All Models</button>
+
+        <div id="results"></div>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        window.testAllModels = async function() {
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const resultsDiv = document.getElementById('results');
+            const testBtn = document.getElementById('testBtn');
+
+            if (!apiKey) {
+                resultsDiv.innerHTML = '<div class="results error">❌ Please enter your API key!</div>';
+                return;
+            }
+
+            testBtn.disabled = true;
+            testBtn.textContent = 'Testing...';
+            resultsDiv.innerHTML = '<div class="results info">🔍 Testing models... Please wait...</div>';
+
+            const models = [
+                "gemini-2.0-flash-exp",
+                "gemini-2.0-flash-thinking-exp-1219",
+                "gemini-1.5-flash-latest",
+                "gemini-1.5-flash",
+                "gemini-1.5-flash-8b",
+                "gemini-1.5-pro-latest",
+                "gemini-1.5-pro",
+                "gemini-pro"
+            ];
+
+            let resultsHTML = '<div class="results info">';
+            resultsHTML += '<strong>📊 Test Results:</strong>\n\n';
+
+            const workingModels = [];
+            const failedModels = [];
+
+            for (const modelName of models) {
+                try {
+                    resultsHTML += `<div class="model-item">Testing: ${modelName}...</div>`;
+                    resultsDiv.innerHTML = '<div class="results info">' + resultsHTML + '</div>';
+
+                    const genAI = new GoogleGenerativeAI(apiKey);
+                    const model = genAI.getGenerativeModel({ model: modelName });
+
+                    const result = await model.generateContent("Say 'Hello' in Urdu");
+                    const response = await result.response.text();
+
+                    workingModels.push({ name: modelName, response });
+                    resultsHTML += `<div class="model-item model-success">✅ ${modelName} - WORKING!</div>`;
+
+                } catch (error) {
+                    failedModels.push({ name: modelName, error: error.message });
+                    resultsHTML += `<div class="model-item model-fail">❌ ${modelName} - ${error.message}</div>`;
+                }
+
+                resultsDiv.innerHTML = '<div class="results info">' + resultsHTML + '</div>';
+            }
+
+            // Final summary
+            resultsHTML += '\n\n<strong>📋 SUMMARY:</strong>\n\n';
+            resultsHTML += `✅ Working Models: ${workingModels.length}\n`;
+            resultsHTML += `❌ Failed Models: ${failedModels.length}\n\n`;
+
+            if (workingModels.length > 0) {
+                resultsHTML += '<strong>🎉 RECOMMENDED MODEL:</strong>\n';
+                resultsHTML += `Use: "${workingModels[0].name}"\n\n`;
+                resultsHTML += '<strong>Sample Response:</strong>\n';
+                resultsHTML += `${workingModels[0].response}\n\n`;
+            } else {
+                resultsHTML += '\n⚠️ <strong>NO MODELS WORKING!</strong>\n';
+                resultsHTML += 'Possible issues:\n';
+                resultsHTML += '1. API key invalid hai\n';
+                resultsHTML += '2. API key properly configured nahi hai\n';
+                resultsHTML += '3. Billing enable nahi hai\n';
+                resultsHTML += '4. Region restriction hai\n\n';
+                resultsHTML += 'Solution: https://aistudio.google.com par jaa ke new API key generate karein\n';
+            }
+
+            resultsHTML += '</div>';
+
+            if (workingModels.length > 0) {
+                resultsDiv.innerHTML = '<div class="results success">' + resultsHTML;
+            } else {
+                resultsDiv.innerHTML = '<div class="results error">' + resultsHTML;
+            }
+
+            testBtn.disabled = false;
+            testBtn.textContent = 'Test Again';
+        }
+    </script>
+</body>
+</html>

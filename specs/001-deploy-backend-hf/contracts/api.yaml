@@ -1,0 +1,257 @@
+openapi: 3.0.3
+info:
+  title: Humanoid Robotics Textbook RAG Chatbot API
+  description: |
+    Backend API providing RAG-based chatbot and translation services for the
+    Humanoid Robotics Textbook. Uses Cohere embeddings/chat and Qdrant vector database.
+  version: 1.0.0
+  contact:
+    name: Humanoid Robotics Textbook Team
+servers:
+  - url: http://localhost:8001
+    description: Local development
+  - url: https://{space-name}.hf.space
+    description: Production (Hugging Face Spaces)
+    variables:
+      space-name:
+        default: humanoid-robotics-chatbot
+        description: HF Spaces subdomain
+
+paths:
+  /:
+    get:
+      summary: API Root
+      description: Returns API information and available endpoints
+      responses:
+        '200':
+          description: API information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: RAG Chatbot API
+                  version:
+                    type: string
+                    example: "1.0"
+                  endpoints:
+                    type: object
+                  example_request:
+                    type: object
+
+  /health:
+    get:
+      summary: Health Check
+      description: Verifies backend service is running and connected to dependencies
+      responses:
+        '200':
+          description: Service healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [ok]
+                  version:
+                    type: string
+                required:
+                  - status
+                  - version
+              example:
+                status: ok
+                version: "1.0"
+
+  /chat:
+    post:
+      summary: Chatbot Query (Non-streaming)
+      description: |
+        Send a question to the chatbot and receive a complete response.
+        Uses RAG (Retrieval-Augmented Generation) with Cohere + Qdrant.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                  description: User's question
+                selected_text:
+                  type: string
+                  description: Optional user-highlighted text for contextual queries
+                agent_id:
+                  type: string
+                  description: Optional specialized agent ID
+              required:
+                - question
+            examples:
+              simple_query:
+                summary: Simple question
+                value:
+                  question: "What is a robot?"
+              contextual_query:
+                summary: Query with selected text
+                value:
+                  question: "Explain this concept"
+                  selected_text: "Forward kinematics involves calculating..."
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    description: Generated answer from Cohere
+                  sources:
+                    type: array
+                    items:
+                      type: string
+                    description: URLs of source chunks
+                required:
+                  - answer
+                  - sources
+              example:
+                answer: "A robot is a machine, often designed to resemble or mimic human..."
+                sources:
+                  - "https://humanoid-robotics-textbook-psi.vercel.app/docs/introduction/"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+
+  /stream-chat:
+    post:
+      summary: Chatbot Query (Streaming)
+      description: |
+        Send a question and receive response as Server-Sent Events (SSE) stream.
+        Allows real-time token-by-token streaming.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                selected_text:
+                  type: string
+                agent_id:
+                  type: string
+              required:
+                - question
+      responses:
+        '200':
+          description: SSE stream of tokens
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                description: |
+                  Stream of events in SSE format:
+                  - { "token": "word", "done": false } - Each token
+                  - { "done": true, "response": "{...}" } - Final response with sources
+              examples:
+                stream_events:
+                  summary: Example stream
+                  value: |
+                    data: {"token":"A","done":false}
+
+                    data: {"token":" robot","done":false}
+
+                    data: {"done":true,"response":"{\"answer\":\"...\",\"sources\":[...]}"}
+
+  /translate:
+    post:
+      summary: Translate Page Content
+      description: |
+        Translate book page content to Urdu using Cohere embeddings data.
+        Retrieves embedded chunks for the page and translates using Cohere chat model.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                page_url:
+                  type: string
+                  description: URL of the page to translate (localhost or production)
+                target_language:
+                  type: string
+                  default: urdu
+                  description: Target language for translation
+              required:
+                - page_url
+            examples:
+              localhost_url:
+                summary: Local development URL
+                value:
+                  page_url: "http://localhost:3000/docs/introduction"
+                  target_language: "urdu"
+              production_url:
+                summary: Production URL
+                value:
+                  page_url: "https://humanoid-robotics-textbook-psi.vercel.app/docs/introduction/"
+                  target_language: "urdu"
+      responses:
+        '200':
+          description: Translation result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  translation:
+                    type: string
+                    description: Translated text in target language
+                  source:
+                    type: string
+                    enum: [cohere_embeddings]
+                  error:
+                    type: string
+                    description: Error message if success is false
+              examples:
+                success:
+                  summary: Successful translation
+                  value:
+                    success: true
+                    translation: "01-ROS 2 معرفی\n\n..."
+                    source: "cohere_embeddings"
+                error:
+                  summary: Translation failed
+                  value:
+                    success: false
+                    error: "No content found for page"
+
+components:
+  securitySchemes:
+    none:
+      type: http
+      description: No authentication required (public API)
+
+security:
+  - none: []
+
+tags:
+  - name: Health
+    description: Service health checks
+  - name: Chatbot
+    description: RAG-based question answering
+  - name: Translation
+    description: Content translation services
