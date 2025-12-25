@@ -1,0 +1,69 @@
+openapi: 3.0.0
+info:
+  title: RAG Chatbot API
+  version: 1.0.0
+  description: API for interacting with the RAG chatbot to query book content.
+servers:
+  - url: /api/v1
+    description: Local/Development Server
+paths:
+  /chat:
+    post:
+      summary: Send a message to the RAG chatbot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_message
+              properties:
+                user_message:
+                  type: string
+                  description: The user's query or message.
+                session_id:
+                  type: string
+                  nullable: true
+                  description: Optional session ID to continue a conversation.
+                selected_text:
+                  type: string
+                  nullable: true
+                  description: Optional selected text from the book for contextual query.
+      responses:
+        '200':
+          description: Successful response from the chatbot.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bot_message:
+                    type: string
+                    description: The chatbot's generated response.
+                  session_id:
+                    type: string
+                    description: The session ID for the ongoing conversation.
+                  sources:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Source'
+        '400':
+          description: Invalid request.
+        '500':
+          description: Internal server error.
+components:
+  schemas:
+    Source:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of the source document/chapter.
+        url:
+          type: string
+          description: URL to the specific section or page of the source.
+        heading:
+          type: string
+          nullable: true
+          description: Specific heading or subsection within the source.

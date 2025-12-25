@@ -7,6 +7,10 @@ const config: Config = {
   tagline: 'Bridging Digital Intelligence with the Physical World',
   favicon: 'img/logo.png',
 
+  customFields: {
+    geminiApiKey: process.env.GEMINI_API_KEY || '',
+  },
+
   future: {
     v4: true,
   },

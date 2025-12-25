@@ -36,15 +36,15 @@ export default function ChatWindow({ isOpen, onClose, selectedTextContext, onSen
 
   // Welcome message on first load
   useEffect(() => {
-    if (messages.length === 0) {
+    if (messages.length === 0 && isOpen) {
       setMessages([
         {
           role: 'assistant',
-          content: 'Hello! I\'m your Humanoid Robotics textbook assistant. Ask me anything about the book! 🤖📚',
+          content: 'Hello! I\'m your Humanoid Robotics textbook assistant. Ask me anything about robotics, humanoid robots, ROS2, URDF, or any topic from the book! 📚🤖',
         },
       ]);
     }
-  }, []);
+  }, [isOpen]);
 
   const handleSendMessage = async (question: string, selectedText?: string) => {
     if (!question.trim() || isLoading) return;

@@ -1,36 +1,36 @@
-# Implementation Plan: SpecKit-Book-RAG-Chatbot-Docusaurus
+# Implementation Plan: Book Project RAG Chatbot Integration
 
-**Branch**: `spec-kit-rag-chatbot` | **Date**: 2025-12-09 | **Spec**: /specs/SpecKit-Book-RAG-Chatbot-Docusaurus/spec.md
-**Input**: Feature specification from `/specs/spec-kit-rag-chatbot/spec.md`
+**Branch**: `main` | **Date**: 2025-12-19 | **Spec**: ./specs/main/spec.md
+**Input**: Feature specification from `/specs/main/spec.md`
 
 **Note**: This template is filled in by the `/sp.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
 
 ## Summary
 
-Production-ready RAG chatbot embedded on a Docusaurus website, capable of intelligently answering questions from the AI book (MDX files in `/docs`) in a natural mix of English + Roman Urdu, within 5-8 seconds, with source links. The technical approach involves a FastAPI backend with OpenAI Agents SDK, Cohere embeddings, Qdrant vector database, and a custom React chat UI component within Docusaurus.
+Create a book project integrating Claude Code Subagents and Agent Skills for a RAG chatbot, targeting developers for evaluation. The project will involve 3+ subagents for content generation, summarization, and translation, along with Agent Skills for query answering and content summarization. The RAG chatbot will respond correctly to book-related queries, and all documentation will be clear and in Markdown format with clear code examples.
 
 ## Technical Context
 
 **Language/Version**: Python 3.11
-**Primary Dependencies**: FastAPI, Uvicorn, OpenAI Agents SDK v0.28+, Cohere (embeddings), Qdrant (vector DB)
-**Storage**: Qdrant (Docker)
-**Testing**: NEEDS CLARIFICATION
-**Target Platform**: Linux server
-**Project Type**: Web application (Frontend + Backend)
-**Performance Goals**: Chatbot replies correctly within 5–8 seconds
-**Constraints**: Pure Docusaurus 3 (NO Next.js), No LangChain, OpenAI Agents SDK v0.28+, Cohere Free Tier, Qdrant (Docker)
-**Scale/Scope**: Entire AI book in `/docs` folder, Roman Urdu + English mix, production-ready.
+**Primary Dependencies**: FastAPI, Qdrant, Cohere, Docusaurus, React
+**Storage**: Qdrant Cloud Free Tier
+**Testing**: pytest
+**Target Platform**: Linux server (backend), Web (frontend)
+**Project Type**: Web (frontend + backend)
+**Performance Goals**: Target 1-2 seconds total response time for interactive RAG chatbot (retrieval and generation combined, 500-1000ms each). Aim for high throughput.
+**Constraints**: Use only free-tier: Qdrant free, Cohere free credits if possible; no paid OpenAI (use Cohere/Gemini); word/file limit: keep code modular; existing site: brownfield integration (add to already built Docusaurus)
+**Scale/Scope**: Modular architecture, cloud deployment with containerization, API security, regular maintenance (re-embedding, benchmarking). Horizontal scaling for Qdrant; Cohere production keys for higher query volumes.
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- ✅ **Embodied Intelligence First**: Aligned (indirectly, as the book content is about Physical AI).
-- ✅ **One Element Per Type Rule**: Not directly applicable to chatbot implementation, but chatbot will process content following this rule.
-- ✅ **Professional Learner Experience**: Aligned (chatbot aims for professional experience with accurate, sourced answers).
-- ✅ **95%+ Consistency Target**: Aligned (chatbot will aim for consistent responses and source attribution).
-- ✅ **Spec-Driven Development**: Aligned (current process adheres to this).
-- ✅ **Technology Stack (Locked)**: Aligned (uses Docusaurus, FastAPI, Python Agents, OpenAI/Groq, Cohere, Qdrant as specified).
+- Accuracy: All answers must be grounded in the book's content only. No hallucinations. (PASS)
+- Privacy & Security: Never expose API keys in frontend. Use environment variables. (PASS)
+- Reproducibility: All code must be runnable with provided keys and free-tier services. (PASS)
+- Clarity: Code must be well-commented, beginner-friendly (for GIAIC students). (PASS)
+- Rigor: Use modern best practices – async where possible, proper error handling. (PASS)
+- Agentic Focus: Prefer tool-use and retrieval patterns over simple chat. (PASS)
 
 ## Project Structure
 
@@ -47,41 +47,51 @@ specs/[###-feature]/
 ```
 
 ### Source Code (repository root)
+<!--
+  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
+  for this feature. Delete unused options and expand the chosen structure with
+  real paths (e.g., apps/admin, packages/something). The delivered plan must
+  not include Option labels.
+-->
+
 ```text
-spec-kit-rag-chatbot/
-├── backend/
-│   ├── app/
-│   │   ├── main.py                      # FastAPI app
-│   │   ├── config.py                    # env + settings (Pydantic Settings)
-│   │   ├── agents/
-│   │   │   ├── rag_agent.py             # OpenAI Agent definition
-│   │   │   └── tools.py                 # retrieval tool
-│   │   ├── embedding/
-│   │   │   └── cohere_embedder.py       # async embed function
-│   │   ├── ingestion/
-│   │   │   ├── loader.py                # pure Python MDX loader + chunker
-│   │   │   └── ingest.py                # one-click ingestion script
-│   │   ├── vector/
-│   │   │   └── qdrant_client.py         # collection create + upsert + search
-│   │   └── models/
-│   │       └── schemas.py               # Pydantic request/response models
-│   ├── Dockerfile
-│   ├── requirements.txt
-│   └── .env.example
-├── docusaurus-chat-plugin/
-│   └── src/
-│       └── components/
-│           └── BookChatBot/
-│               ├── ChatBubble.tsx
-│               ├── ChatMessage.tsx
-│               ├── ChatInput.tsx
-│               └── api.ts                   # calls backend /chat
-├── docker-compose.yml
-├── SPECIFICATION.md (this file)
-└── README.md
+# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+src/
+├── models/
+├── services/
+├── cli/
+└── lib/
+
+tests/
+├── contract/
+├── integration/
+└── unit/
+
+# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+backend/
+├── src/
+│   ├── models/
+│   ├── services/
+│   └── api/
+└── tests/
+
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   └── services/
+└── tests/
+
+# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+api/
+└── [same as backend above]
+
+ios/ or android/
+└── [platform-specific structure: feature modules, UI flows, platform tests]
 ```
 
-**Structure Decision**: The project will utilize a monorepo-like structure with a clear separation between the backend (FastAPI) and the Docusaurus chat plugin (React). This aligns with the provided exact folder structure in the specification, optimizing for maintainability and independent deployment of frontend and backend components.
+**Structure Decision**: [Document the selected structure and reference the real
+directories captured above]
 
 ## Complexity Tracking
 

@@ -8,6 +8,8 @@ build/
 .env*
 .docusaurus/
 .cache/
+nul
+my-website/nul
 
 
 # Python

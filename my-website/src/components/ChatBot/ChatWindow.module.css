@@ -28,12 +28,14 @@
   background: var(--ifm-background-surface-color);
   border-radius: 16px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  width: 380px; /* Desktop default */
-  height: 500px; /* Desktop default */
-  max-width: 800px;
+  width: 420px;
+  height: 600px;
+  max-width: 90vw;
+  max-height: 85vh;
   display: flex;
   flex-direction: column;
   animation: slideUp 0.3s ease-out;
+  position: relative;
 }
 
 @keyframes slideUp {
@@ -157,11 +159,12 @@
   }
 
   .window {
-    max-width: 100%;
-    max-width: calc(100vw - 30px); /* Consistent with global CSS */
-    max-height: calc(100vh - 140px); /* Consistent with global CSS */
-    height: calc(100vh - 140px);
-    border-radius: 16px; /* Consistent with global CSS */
+    width: calc(100vw - 30px) !important;
+    max-width: calc(100vw - 30px);
+    height: calc(100vh - 140px) !important;
+    max-height: calc(100vh - 140px);
+    border-radius: 16px;
+    margin: 0 auto;
   }
 
   .header {
@@ -195,15 +198,22 @@
 
 /* Extra small mobile devices */
 @media (max-width: 480px) {
+  .overlay {
+    padding: 0;
+  }
+
   .window {
-    max-width: calc(100vw - 20px); /* Consistent with global CSS */
-    max-height: calc(100vh - 110px); /* Consistent with global CSS */
-    height: calc(100vh - 110px);
-    border-radius: 12px; /* Consistent with global CSS */
+    width: calc(100vw - 20px) !important;
+    max-width: calc(100vw - 20px);
+    height: calc(100vh - 100px) !important;
+    max-height: calc(100vh - 100px);
+    border-radius: 12px;
+    margin: 0 auto;
   }
 
   .header {
     padding: 10px 14px;
+    border-radius: 12px 12px 0 0;
   }
 
   .title {
@@ -212,7 +222,7 @@
 
   .messages {
     padding: 10px 14px;
-    max-height: calc(100% - 100px);
+    max-height: calc(100% - 110px);
   }
 
   .input {
@@ -221,6 +231,10 @@
 
   .footer {
     padding: 5px 12px;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .footerText {
     font-size: 10px;
   }
 }
@@ -242,7 +256,13 @@
 /* Tablet responsive */
 @media (min-width: 769px) and (max-width: 1024px) {
   .window {
-    max-width: 90%;
-    max-width: min(90%, 700px); /* More specific width for tablets */
+    width: 450px;
+    height: 650px;
+    max-width: 85vw;
+    max-height: 80vh;
+  }
+
+  .messages {
+    padding: 16px 18px;
   }
 }
