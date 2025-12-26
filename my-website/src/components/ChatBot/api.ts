@@ -9,8 +9,8 @@ let API_BASE_URL = 'http://localhost:8001'; // Default for local development
 
 // Update this to your actual deployed backend URL
 if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-  // Production URL - UPDATE THIS TO YOUR DEPLOYED BACKEND URL
-  API_BASE_URL = 'https://humanoid-robotics-textbook-psi.vercel.app/'; // Example: you can also use 'https://your-app-name.vercel.app' if deployed separately
+  // Production URL - Hugging Face Space backend
+  API_BASE_URL = 'https://rameesha12123214-hackathone.hf.space';
 }
 
 export interface ChatRequest {
