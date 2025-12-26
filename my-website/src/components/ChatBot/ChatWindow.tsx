@@ -106,7 +106,7 @@ export default function ChatWindow({ isOpen, onClose, selectedTextContext, onSen
         }
       }
     } catch (error) {
-      assistantMessage.content = `❌ Connection error: ${error.message}. Make sure the backend is running at http://localhost:8001`;
+      assistantMessage.content = `❌ Connection error: ${error.message}. Make sure the backend is running and accessible.`;
       assistantMessage.isStreaming = false;
       setMessages((prev) => [...prev.slice(0, -1), { ...assistantMessage }]);
     } finally {

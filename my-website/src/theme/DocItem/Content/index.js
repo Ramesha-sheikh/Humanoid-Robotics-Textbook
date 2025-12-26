@@ -56,8 +56,13 @@ export default function DocItemContent({children}) {
       console.log('🌍 Translating using Cohere embeddings...');
       console.log('Page URL:', currentPageUrl);
 
+      // Determine backend URL (same logic as api.ts)
+      const API_BASE_URL = (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1')
+        ? 'https://rameesha12123214-hackathone.hf.space'
+        : 'http://localhost:8001';
+
       // Call Cohere translation backend (using embeddings)
-      const response = await fetch('http://localhost:8001/translate', {
+      const response = await fetch(`${API_BASE_URL}/translate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
