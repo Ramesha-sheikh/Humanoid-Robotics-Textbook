@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import { streamChatMessage, type ChatResponse } from './api';
+import { useAuth } from '../Auth/AuthContext';
 
 export interface Message {
   role: 'user' | 'assistant';
@@ -24,6 +25,7 @@ export interface ChatWindowProps {
 }
 
 export default function ChatWindow({ isOpen, onClose, selectedTextContext, onSendWithContext }: ChatWindowProps): JSX.Element | null {
+  const { token } = useAuth(); // Get auth token for personalized responses
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   // const [mode, setMode] = useState<'normal' | 'highlight'>('normal'); // Removed mode state
@@ -68,8 +70,8 @@ export default function ChatWindow({ isOpen, onClose, selectedTextContext, onSen
       // Determine if there's selected text from context menu or direct input
       const textToSend = selectedTextContext || selectedText;
 
-      // Stream response tokens
-      for await (const chunk of streamChatMessage(question, textToSend)) {
+      // Stream response tokens with optional auth token for personalization
+      for await (const chunk of streamChatMessage(question, textToSend, token || undefined)) {
         if (chunk.error) {
           assistantMessage.content += `\n\n❌ Error: ${chunk.error}`;
           assistantMessage.isStreaming = false;

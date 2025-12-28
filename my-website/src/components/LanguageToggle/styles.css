@@ -1,7 +1,7 @@
 .language-toggle-container {
   position: fixed;
-  top: 10px;
-  right: 180px;
+  bottom: 20px;
+  left: 20px;
   z-index: 999;
 }
 
@@ -100,8 +100,8 @@
 /* Responsive adjustments */
 @media (max-width: 996px) {
   .language-toggle-container {
-    top: 12px;
-    right: 140px;
+    bottom: 15px;
+    left: 15px;
   }
 
   .language-toggle-btn {
@@ -120,8 +120,8 @@
 
 @media (max-width: 768px) {
   .language-toggle-container {
-    top: 10px;
-    right: 100px;
+    bottom: 15px;
+    left: 10px;
   }
 
   .language-toggle-btn {
@@ -140,6 +140,7 @@
 
 @media (max-width: 480px) {
   .language-toggle-container {
-    right: 60px;
+    bottom: 10px;
+    left: 10px;
   }
 }

@@ -40,14 +40,24 @@ export interface StreamChunk {
 
 /**
  * Send chat request and get complete response (non-streaming)
+ * @param question - The user's question
+ * @param selected_text - Optional selected text for context
+ * @param token - Optional JWT token for authenticated personalization
  */
-export async function sendChatMessage(question: string, selected_text?: string): Promise<ChatResponse> {
+export async function sendChatMessage(question: string, selected_text?: string, token?: string): Promise<ChatResponse> {
   const requestBody = { question, selected_text };
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+
+  // Add Authorization header if token is provided
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
   const response = await fetch(`${API_BASE_URL}/chat`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers,
     body: JSON.stringify(requestBody),
   });
 
@@ -59,74 +69,54 @@ export async function sendChatMessage(question: string, selected_text?: string):
 }
 
 /**
- * Send chat request and stream response tokens via SSE
+ * Send chat request using non-streaming endpoint (temporary workaround)
+ * Simulates streaming by returning the full response at once
+ * @param question - The user's question
+ * @param selected_text - Optional selected text for context
+ * @param token - Optional JWT token for authenticated personalization
  */
-export async function* streamChatMessage(question: string, selected_text?: string): AsyncGenerator<StreamChunk> {
+export async function* streamChatMessage(question: string, selected_text?: string, token?: string): AsyncGenerator<StreamChunk> {
   const requestBody = { question, selected_text };
-  const response = await fetch(`${API_BASE_URL}/stream-chat`, {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+
+  // Add Authorization header if token is provided
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  // Use /chat endpoint instead of /stream-chat (working endpoint)
+  const response = await fetch(`${API_BASE_URL}/chat`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers,
     body: JSON.stringify(requestBody),
   });
 
   if (!response.ok) {
-    throw new Error(`Stream API error: ${response.statusText}`);
+    throw new Error(`API error: ${response.statusText}`);
   }
 
-  const reader = response.body?.getReader();
-  const decoder = new TextDecoder();
+  // Get the full response
+  const chatResponse: ChatResponse = await response.json();
 
-  if (!reader) {
-    throw new Error('Response body is not readable');
+  // Simulate streaming by yielding the answer word by word
+  const words = chatResponse.answer.split(' ');
+  for (let i = 0; i < words.length; i++) {
+    const token = (i === 0 ? '' : ' ') + words[i];
+    yield {
+      token,
+      done: false
+    };
+    // Small delay to simulate streaming (optional, can be removed for instant response)
+    await new Promise(resolve => setTimeout(resolve, 20));
   }
 
-  let buffer = '';
-
-  while (true) {
-    const { done, value } = await reader.read();
-
-    if (done) break;
-
-    // Decode chunk and add to buffer
-    buffer += decoder.decode(value, { stream: true });
-
-    // Process complete SSE messages (data: {...}\n\n)
-    const lines = buffer.split('\n\n');
-    buffer = lines.pop() || ''; // Keep incomplete message in buffer
-
-    for (const line of lines) {
-      if (line.startsWith('data: ')) {
-        const data = line.slice(6); // Remove "data: " prefix
-
-        try {
-          const parsedData = JSON.parse(data);
-
-          // Handle both token chunks and final response chunks
-          if (parsedData.done && parsedData.response) {
-            // This is the final chunk with full response
-            const finalChunk: StreamChunk = {
-              done: true,
-              response: JSON.parse(parsedData.response) // Parse the response from string to object
-            };
-            yield finalChunk;
-            return;
-          } else {
-            // This is a regular token chunk
-            const chunk: StreamChunk = parsedData;
-            yield chunk;
-
-            if (chunk.done || chunk.error) {
-              return;
-            }
-          }
-        } catch (e) {
-          console.error('Failed to parse SSE message:', data, e);
-        }
-      }
-    }
-  }
+  // Final chunk with complete response
+  yield {
+    done: true,
+    response: chatResponse
+  };
 }
 
 /**

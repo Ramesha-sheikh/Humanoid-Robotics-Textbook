@@ -1,0 +1,191 @@
+/* Auth Buttons Container */
+.authButtons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+}
+
+/* Sign In Button */
+.signinButton {
+  padding: 6px 16px;
+  background: transparent;
+  color: var(--ifm-navbar-link-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.signinButton:hover {
+  background: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-emphasis-400);
+  transform: translateY(-1px);
+}
+
+/* Sign Up Button */
+.signupButton {
+  padding: 6px 16px;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  border: 1px solid var(--ifm-color-primary);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.signupButton:hover {
+  background: var(--ifm-color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+/* Profile Container */
+.profileContainer {
+  position: relative;
+  margin-left: 8px;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: transparent;
+  color: var(--ifm-navbar-link-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.profileButton:hover {
+  background: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-emphasis-400);
+}
+
+.profileIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.profileEmail {
+  font-size: 13px;
+  font-weight: 500;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdownArrow {
+  font-size: 10px;
+  margin-left: 4px;
+  transition: transform 0.2s ease;
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+  z-index: 1000;
+  animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  color: var(--ifm-font-color-base);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.dropdownItem:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.dropdownIcon {
+  font-size: 16px;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: var(--ifm-color-emphasis-200);
+  margin: 8px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 996px) {
+  .profileEmail {
+    display: none;
+  }
+
+  .authButtons {
+    gap: 6px;
+  }
+
+  .signinButton,
+  .signupButton {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 640px) {
+  .signinButton,
+  .signupButton {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .profileButton {
+    padding: 6px 10px;
+  }
+}
+
+/* Dark Mode Support */
+[data-theme='dark'] .dropdown {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme='dark'] .signinButton,
+[data-theme='dark'] .profileButton {
+  border-color: var(--ifm-color-emphasis-400);
+}
+
+[data-theme='dark'] .signinButton:hover,
+[data-theme='dark'] .profileButton:hover {
+  background: var(--ifm-color-emphasis-200);
+}

@@ -1,0 +1,375 @@
+/* Learning Path Container */
+.learningPathContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--ifm-heading-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.pathIcon {
+  font-size: 36px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+}
+
+.subtitle strong {
+  color: var(--ifm-color-primary);
+}
+
+/* Path Steps */
+.pathSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.step {
+  background: var(--ifm-card-background-color);
+  border: 2px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.step:hover {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.step.expanded {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Step Header */
+.stepHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.stepNumber {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.stepIcon {
+  font-size: 32px;
+  display: block;
+}
+
+.numberBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--ifm-color-primary);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.stepInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.stepTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+  color: var(--ifm-heading-color);
+}
+
+.stepDescription {
+  font-size: 14px;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Step Meta */
+.stepMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.difficultyBadge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.difficultyBadge.beginner {
+  background: rgba(76, 175, 80, 0.15);
+  color: #4caf50;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.difficultyBadge.intermediate {
+  background: rgba(255, 152, 0, 0.15);
+  color: #ff9800;
+  border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+.difficultyBadge.advanced {
+  background: rgba(244, 67, 54, 0.15);
+  color: #f44336;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.timeBadge {
+  font-size: 13px;
+  color: var(--ifm-color-emphasis-600);
+  white-space: nowrap;
+}
+
+.expandArrow {
+  font-size: 14px;
+  color: var(--ifm-color-emphasis-600);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.step.expanded .expandArrow {
+  transform: rotate(180deg);
+}
+
+/* Step Content */
+.stepContent {
+  padding: 0 20px 20px 20px;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+
+.modulesHeader {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 16px 0 12px 0;
+  color: var(--ifm-heading-color);
+}
+
+.modulesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.moduleItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--ifm-font-color-base);
+  transition: all 0.2s ease;
+}
+
+.moduleItem:hover {
+  background: var(--ifm-color-emphasis-200);
+  transform: translateX(4px);
+}
+
+.checkboxIcon {
+  font-size: 18px;
+  color: var(--ifm-color-emphasis-500);
+  flex-shrink: 0;
+}
+
+/* Footer */
+.footer {
+  margin-top: 32px;
+  padding: 20px;
+  background: var(--ifm-color-primary-lightest);
+  border-radius: 12px;
+  border-left: 4px solid var(--ifm-color-primary);
+}
+
+.footerText {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ifm-color-emphasis-800);
+  line-height: 1.6;
+}
+
+.footerText strong {
+  color: var(--ifm-color-primary-dark);
+}
+
+/* Not Authenticated Message */
+.notAuthenticatedMessage {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 16px;
+}
+
+/* Dark Mode */
+[data-theme='dark'] .step {
+  background: var(--ifm-background-surface-color);
+  border-color: var(--ifm-color-emphasis-300);
+}
+
+[data-theme='dark'] .stepContent {
+  border-top-color: var(--ifm-color-emphasis-300);
+}
+
+[data-theme='dark'] .moduleItem {
+  background: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .moduleItem:hover {
+  background: var(--ifm-color-emphasis-300);
+}
+
+[data-theme='dark'] .footer {
+  background: var(--ifm-color-emphasis-100);
+  border-left-color: var(--ifm-color-primary-light);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .learningPathContainer {
+    padding: 24px 16px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .pathIcon {
+    font-size: 28px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .stepHeader {
+    flex-wrap: wrap;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .stepIcon {
+    font-size: 28px;
+  }
+
+  .numberBadge {
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+  }
+
+  .stepTitle {
+    font-size: 16px;
+  }
+
+  .stepDescription {
+    font-size: 13px;
+  }
+
+  .stepMeta {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    order: 4;
+  }
+
+  .expandArrow {
+    order: 3;
+  }
+
+  .difficultyBadge {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+
+  .timeBadge {
+    font-size: 12px;
+  }
+
+  .stepContent {
+    padding: 0 16px 16px 16px;
+  }
+
+  .moduleItem {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  .footer {
+    padding: 16px;
+  }
+
+  .footerText {
+    font-size: 13px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 996px) and (min-width: 769px) {
+  .learningPathContainer {
+    padding: 28px 20px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .stepHeader {
+    padding: 18px;
+  }
+}

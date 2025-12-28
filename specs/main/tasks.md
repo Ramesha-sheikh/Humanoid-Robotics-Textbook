@@ -31,7 +31,7 @@
 22. [X] Add plugin to your live Docusaurus site (docusaurus.config.js)
 
 ## Phase 6: Testing & Deployment (2 hours)
-23. [ ] Run full local test: `docker-compose up → python ingest.py → test chat`
+23. [X] Run full local test: `docker-compose up → python ingest.py → test chat`
 24. [ ] Verify Roman Urdu + English answers with correct clickable source links
 25. [ ] Deploy backend + Qdrant to Railway or Render
 26. [ ] Update frontend to use live backend URL

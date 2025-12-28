@@ -1,0 +1,157 @@
+/* Personalized Recommendations Panel */
+.recommendationsPanel {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  margin: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.recommendationsHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.sparkleIcon {
+  font-size: 20px;
+}
+
+.recommendationsHeader h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+/* User Profile Info */
+.userProfile {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.profileLabel {
+  margin: 4px 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.profileLabel strong {
+  color: white;
+  margin-right: 4px;
+}
+
+/* Recommendations List */
+.recommendationsList {
+  margin: 12px 0;
+}
+
+.recommendationItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.recommendationItem:last-child {
+  border-bottom: none;
+}
+
+.checkIcon {
+  font-size: 14px;
+  color: #ffd700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Level Badge */
+.levelBadge {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.beginnerBadge,
+.advancedBadge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.beginnerBadge {
+  background: rgba(76, 175, 80, 0.3);
+  border: 1px solid rgba(76, 175, 80, 0.5);
+  color: #c8e6c9;
+}
+
+.advancedBadge {
+  background: rgba(255, 152, 0, 0.3);
+  border: 1px solid rgba(255, 152, 0, 0.5);
+  color: #ffe0b2;
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .recommendationsPanel {
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .userProfile {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Light mode adjustments */
+[data-theme='light'] .recommendationsPanel {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .recommendationsPanel {
+    margin: 12px;
+    padding: 16px;
+  }
+
+  .recommendationsHeader h3 {
+    font-size: 14px;
+  }
+
+  .profileLabel {
+    font-size: 12px;
+  }
+
+  .recommendationItem {
+    font-size: 12px;
+  }
+
+  .beginnerBadge,
+  .advancedBadge {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+}

@@ -1,13 +1,13 @@
 // ============================================
 // FRONTEND TRANSLATION CLIENT
 // ============================================
-// This file calls the BACKEND API (no Gemini SDK here!)
-// API key is NEVER exposed to the browser
+// This file calls the BACKEND API (Cohere-based translation)
+// Uses the same backend as chatbot (port 8001)
 
-// Backend API URL (change for production deployment)
+// Backend API URL - uses chatbot backend with Cohere translation
 const API_URL = process.env.NODE_ENV === 'production'
-  ? 'https://your-backend-api.com' // TODO: Update for production
-  : 'http://localhost:5000';
+  ? 'https://rameesha12123214-hackathone.hf.space' // Hugging Face Spaces
+  : 'http://localhost:8001'; // Local backend
 
 interface TranslationProgress {
   currentChunk: number;
@@ -83,11 +83,12 @@ export async function translateToUrdu(
   apiKey: string, // DEPRECATED - Not used (backend has the key)
   onProgress?: (progress: number) => void
 ): Promise<string> {
-  console.log("=== 🌍 Frontend Translation Client (Backend API) ===");
-  console.log("Content length:", markdown.length, "chars");
+  console.log("=== 🌍 Frontend Translation Client (Cohere Backend) ===");
   console.log("Backend API:", API_URL);
+  console.log("Page:", slug);
 
-  const cacheKey = `urdu_v3_${slug}`; // v3 for new backend system
+  // v4 cache: now uses page URL instead of markdown content
+  const cacheKey = `urdu_v4_${slug.replace(/[^a-zA-Z0-9]/g, '_')}`;
 
   // Check cache first
   const cached = getCachedTranslation(cacheKey);
@@ -96,10 +97,7 @@ export async function translateToUrdu(
     return cached;
   }
 
-  // Validate input
-  if (!markdown || markdown.trim().length === 0) {
-    throw new Error('⚠️ No content to translate');
-  }
+  // No need to validate markdown anymore - backend fetches content from Qdrant
 
   // Rate limiting check (client-side)
   const now = Date.now();
@@ -113,18 +111,20 @@ export async function translateToUrdu(
 
   try {
     console.log("📤 Sending request to backend API...");
+    console.log("Current page URL:", window.location.href);
 
     if (onProgress) onProgress(10); // Initial progress
 
-    // Call backend API using fetch()
-    const response = await fetch(`${API_URL}/api/translate`, {
+    // Call backend /translate endpoint (Cohere-based, fast!)
+    // Only sends page URL, backend fetches relevant content from Qdrant
+    const response = await fetch(`${API_URL}/translate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        markdown: markdown,
-        slug: slug
+        page_url: window.location.href, // Current page URL
+        target_language: 'urdu'
       })
     });
 
@@ -149,7 +149,7 @@ export async function translateToUrdu(
 
     if (onProgress) onProgress(90);
 
-    // Cache result
+    // Cache result (now cached by page URL, not markdown content)
     setCachedTranslation(cacheKey, translation);
 
     if (onProgress) onProgress(100);
@@ -163,15 +163,13 @@ export async function translateToUrdu(
     let userMessage = "Translation failed. Please try again.";
 
     if (error.message?.includes('Failed to fetch') || error.message?.includes('NetworkError')) {
-      userMessage = "❌ Cannot connect to translation server.\n\n🔧 Fix:\n1. Make sure backend server is running\n2. Run: cd my-website/backend && npm start\n3. Check that server is at http://localhost:5000";
-    } else if (error.message?.includes('Invalid API key')) {
-      userMessage = "❌ Server API key is invalid.\n\n🔧 Fix: Check backend .env file and restart server";
-    } else if (error.message?.includes('Rate limit exceeded')) {
-      userMessage = "❌ Rate limit exceeded.\n\n⏱️ Please wait 60 seconds and try again.\n📊 Free tier: 15 requests/minute";
-    } else if (error.message?.includes('Access denied')) {
-      userMessage = "❌ Access denied.\n\n🔧 Fix: Check API key permissions on server";
-    } else if (error.message?.includes('Model') && error.message?.includes('not found')) {
-      userMessage = "❌ Translation model not available.\n\n🔧 Fix: Check backend server configuration";
+      userMessage = "❌ Cannot connect to translation server.\n\n🔧 Fix:\n1. Make sure backend server is running on port 8001\n2. Backend should be the same one as chatbot\n3. Check that server is at http://localhost:8001";
+    } else if (error.message?.includes('No content found')) {
+      userMessage = "❌ Page content not found in database.\n\n🔧 This page may not be indexed yet. Try reloading the page.";
+    } else if (error.message?.includes('Rate limit')) {
+      userMessage = "❌ Rate limit exceeded.\n\n⏱️ Please wait a moment and try again.";
+    } else if (error.message?.includes('Cohere')) {
+      userMessage = "❌ Translation service error.\n\n🔧 Backend API issue. Check server logs.";
     } else if (error.message) {
       userMessage = `❌ Error: ${error.message}`;
     }
