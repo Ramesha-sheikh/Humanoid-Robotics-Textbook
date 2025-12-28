@@ -86,37 +86,63 @@ export async function* streamChatMessage(question: string, selected_text?: strin
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  // Use /chat endpoint instead of /stream-chat (working endpoint)
-  const response = await fetch(`${API_BASE_URL}/chat`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(requestBody),
-  });
+  try {
+    // Use /chat endpoint with extended timeout for HF Space cold starts
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 minute timeout
 
-  if (!response.ok) {
-    throw new Error(`API error: ${response.statusText}`);
-  }
+    const response = await fetch(`${API_BASE_URL}/chat`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(requestBody),
+      signal: controller.signal,
+    });
 
-  // Get the full response
-  const chatResponse: ChatResponse = await response.json();
+    clearTimeout(timeoutId);
 
-  // Simulate streaming by yielding the answer word by word
-  const words = chatResponse.answer.split(' ');
-  for (let i = 0; i < words.length; i++) {
-    const token = (i === 0 ? '' : ' ') + words[i];
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`API error (${response.status}): ${errorText || response.statusText}`);
+    }
+
+    // Get the full response
+    const chatResponse: ChatResponse = await response.json();
+
+    // Simulate streaming by yielding the answer word by word
+    const words = chatResponse.answer.split(' ');
+    for (let i = 0; i < words.length; i++) {
+      const token = (i === 0 ? '' : ' ') + words[i];
+      yield {
+        token,
+        done: false
+      };
+      // Small delay to simulate streaming (optional, can be removed for instant response)
+      await new Promise(resolve => setTimeout(resolve, 20));
+    }
+
+    // Final chunk with complete response
     yield {
-      token,
-      done: false
+      done: true,
+      response: chatResponse
     };
-    // Small delay to simulate streaming (optional, can be removed for instant response)
-    await new Promise(resolve => setTimeout(resolve, 20));
+  } catch (error: any) {
+    if (error.name === 'AbortError') {
+      yield {
+        done: true,
+        error: '⏱️ Request timeout - The backend (Hugging Face Space) is taking too long to respond. It might be starting up (cold start). Please try again in 1-2 minutes.'
+      };
+    } else if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+      yield {
+        done: true,
+        error: '🌐 Network error - Cannot connect to backend. Please check your internet connection and try again.'
+      };
+    } else {
+      yield {
+        done: true,
+        error: error.message || 'An unexpected error occurred. Please try again.'
+      };
+    }
   }
-
-  // Final chunk with complete response
-  yield {
-    done: true,
-    response: chatResponse
-  };
 }
 
 /**

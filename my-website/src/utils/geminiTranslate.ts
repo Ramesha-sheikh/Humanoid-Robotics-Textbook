@@ -117,6 +117,10 @@ export async function translateToUrdu(
 
     // Call backend /translate endpoint (Cohere-based, fast!)
     // Only sends page URL, backend fetches relevant content from Qdrant
+    // Add timeout for HF Space cold starts
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 minute timeout
+
     const response = await fetch(`${API_URL}/translate`, {
       method: 'POST',
       headers: {
@@ -125,8 +129,11 @@ export async function translateToUrdu(
       body: JSON.stringify({
         page_url: window.location.href, // Current page URL
         target_language: 'urdu'
-      })
+      }),
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
 
     if (onProgress) onProgress(50); // Midway progress
 
@@ -162,8 +169,10 @@ export async function translateToUrdu(
     // User-friendly error messages
     let userMessage = "Translation failed. Please try again.";
 
-    if (error.message?.includes('Failed to fetch') || error.message?.includes('NetworkError')) {
-      userMessage = "❌ Cannot connect to translation server.\n\n🔧 Fix:\n1. Make sure backend server is running on port 8001\n2. Backend should be the same one as chatbot\n3. Check that server is at http://localhost:8001";
+    if (error.name === 'AbortError') {
+      userMessage = "⏱️ Translation timeout - The backend (Hugging Face Space) is taking too long to respond.\n\n🔧 The server might be starting up (cold start). Please wait 1-2 minutes and try again.";
+    } else if (error.message?.includes('Failed to fetch') || error.message?.includes('NetworkError')) {
+      userMessage = "❌ Cannot connect to translation server.\n\n🔧 Fix:\n1. Check your internet connection\n2. Backend server might be sleeping on Hugging Face\n3. Try again in 1-2 minutes";
     } else if (error.message?.includes('No content found')) {
       userMessage = "❌ Page content not found in database.\n\n🔧 This page may not be indexed yet. Try reloading the page.";
     } else if (error.message?.includes('Rate limit')) {
