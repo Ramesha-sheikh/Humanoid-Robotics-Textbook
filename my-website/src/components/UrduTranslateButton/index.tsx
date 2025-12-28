@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { translateToUrdu } from '../../utils/geminiTranslate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { useAuth } from '../Auth/AuthContext';
 
 interface UrduTranslateButtonProps {
   slug?: string;
@@ -9,6 +10,7 @@ interface UrduTranslateButtonProps {
 
 const UrduTranslateButton: React.FC<UrduTranslateButtonProps> = ({ slug, originalMarkdown: propOriginalMarkdown }) => {
   const { siteConfig } = useDocusaurusContext();
+  const { isAuthenticated } = useAuth();
   const apiKey = (siteConfig.customFields?.geminiApiKey as string) || '';
 
   const [rawMarkdown, setRawMarkdown] = useState<string | null>(propOriginalMarkdown || null);
@@ -25,6 +27,11 @@ const UrduTranslateButton: React.FC<UrduTranslateButtonProps> = ({ slug, origina
       console.log("UrduTranslateButton: Content loaded, length:", propOriginalMarkdown.length);
     }
   }, [propOriginalMarkdown]);
+
+  // Only show translate button if user is authenticated
+  if (!isAuthenticated) {
+    return null;
+  }
 
   const handleTranslateClick = async () => {
     console.log("=== 🌍 Real-World Translation Started ===");

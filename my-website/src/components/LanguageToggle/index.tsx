@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
+import { useAuth } from '../Auth/AuthContext';
 
 const LanguageToggle: React.FC = () => {
+  const { isAuthenticated } = useAuth();
   const [language, setLanguage] = useState<'en' | 'ur'>('en');
 
   // Load language preference from localStorage
@@ -23,6 +25,11 @@ const LanguageToggle: React.FC = () => {
     // Reload to apply language change to current page only
     window.location.reload();
   };
+
+  // Only show language toggle if user is authenticated
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <div className="language-toggle-container">
