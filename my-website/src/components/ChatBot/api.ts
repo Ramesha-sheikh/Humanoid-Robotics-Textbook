@@ -87,18 +87,12 @@ export async function* streamChatMessage(question: string, selected_text?: strin
   }
 
   try {
-    // Use /chat endpoint with extended timeout for HF Space cold starts
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 minute timeout
-
+    // Use /chat endpoint
     const response = await fetch(`${API_BASE_URL}/chat`, {
       method: 'POST',
       headers,
       body: JSON.stringify(requestBody),
-      signal: controller.signal,
     });
-
-    clearTimeout(timeoutId);
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -107,6 +101,15 @@ export async function* streamChatMessage(question: string, selected_text?: strin
 
     // Get the full response
     const chatResponse: ChatResponse = await response.json();
+
+    // Check if database is empty
+    if (chatResponse.answer.includes('No relevant data found')) {
+      yield {
+        done: true,
+        error: '❌ Database is empty - The backend database needs to be populated with book content.\n\n🔧 Admin: Run the ingestion endpoint to populate the database:\ncurl -X POST https://rameesha12123214-hackathone.hf.space/admin/ingest'
+      };
+      return;
+    }
 
     // Simulate streaming by yielding the answer word by word
     const words = chatResponse.answer.split(' ');
@@ -126,12 +129,7 @@ export async function* streamChatMessage(question: string, selected_text?: strin
       response: chatResponse
     };
   } catch (error: any) {
-    if (error.name === 'AbortError') {
-      yield {
-        done: true,
-        error: '⏱️ Request timeout - The backend (Hugging Face Space) is taking too long to respond. It might be starting up (cold start). Please try again in 1-2 minutes.'
-      };
-    } else if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+    if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
       yield {
         done: true,
         error: '🌐 Network error - Cannot connect to backend. Please check your internet connection and try again.'
