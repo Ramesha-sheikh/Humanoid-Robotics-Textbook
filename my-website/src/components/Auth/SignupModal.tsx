@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useHistory } from '@docusaurus/router';
 import { useAuth } from './AuthContext';
 import styles from './styles.module.css';
 
@@ -10,6 +11,7 @@ interface SignupModalProps {
 
 export const SignupModal: React.FC<SignupModalProps> = ({ onClose, onSwitchToSignin }) => {
   const { signup } = useAuth();
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -75,6 +77,8 @@ export const SignupModal: React.FC<SignupModalProps> = ({ onClose, onSwitchToSig
       setRoboticsProjects('None');
       setLearningGoal('General Learning');
       onClose();
+      // Redirect to homepage after successful signup
+      history.push('/');
     } catch (err: any) {
       if (err.message.includes('already registered')) {
         setError('Email already registered. Please sign in instead.');

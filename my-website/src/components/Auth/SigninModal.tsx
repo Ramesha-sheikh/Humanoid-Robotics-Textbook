@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useHistory } from '@docusaurus/router';
 import { useAuth } from './AuthContext';
 import styles from './styles.module.css';
 
@@ -10,6 +11,7 @@ interface SigninModalProps {
 
 export const SigninModal: React.FC<SigninModalProps> = ({ onClose, onSwitchToSignup }) => {
   const { signin } = useAuth();
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +29,8 @@ export const SigninModal: React.FC<SigninModalProps> = ({ onClose, onSwitchToSig
       setEmail('');
       setPassword('');
       onClose();
+      // Redirect to homepage after successful signin
+      history.push('/');
     } catch (err: any) {
       if (err.message.includes('Invalid')) {
         setError('Invalid email or password. Please try again.');

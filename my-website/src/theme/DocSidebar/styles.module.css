@@ -1,11 +1,16 @@
+/* Sidebar Wrapper - ensures content doesn't go behind navbar */
+.sidebarWrapper {
+  padding-top: 8px;
+}
+
 /* Personalized Recommendations Panel */
 .recommendationsPanel {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 20px;
-  margin: 16px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  margin: 16px 16px 24px 16px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.25);
   animation: slideIn 0.3s ease-out;
 }
 
@@ -23,94 +28,136 @@
 .recommendationsHeader {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .sparkleIcon {
-  font-size: 20px;
+  font-size: 24px;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
 }
 
 .recommendationsHeader h3 {
   margin: 0;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
   color: white;
+  letter-spacing: 0.3px;
 }
 
 /* User Profile Info */
 .userProfile {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(10px);
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .profileLabel {
-  margin: 4px 0;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.95);
+  margin: 8px 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.98);
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profileLabel:first-child {
+  margin-top: 0;
+}
+
+.profileLabel:last-child {
+  margin-bottom: 0;
 }
 
 .profileLabel strong {
   color: white;
-  margin-right: 4px;
+  font-weight: 600;
+  min-width: 90px;
 }
 
 /* Recommendations List */
 .recommendationsList {
-  margin: 12px 0;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .recommendationItem {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  padding: 8px 0;
-  font-size: 13px;
-  line-height: 1.4;
-  color: rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 12px;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.98);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease;
 }
 
-.recommendationItem:last-child {
-  border-bottom: none;
+.recommendationItem:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateX(2px);
 }
 
 .checkIcon {
-  font-size: 14px;
+  font-size: 16px;
   color: #ffd700;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 1px;
+  font-weight: bold;
 }
 
 /* Level Badge */
 .levelBadge {
-  margin-top: 12px;
+  margin-top: 16px;
   text-align: center;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .beginnerBadge,
 .advancedBadge {
   display: inline-block;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.beginnerBadge:hover,
+.advancedBadge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .beginnerBadge {
-  background: rgba(76, 175, 80, 0.3);
-  border: 1px solid rgba(76, 175, 80, 0.5);
+  background: rgba(76, 175, 80, 0.4);
+  border: 2px solid rgba(76, 175, 80, 0.6);
   color: #c8e6c9;
 }
 
 .advancedBadge {
-  background: rgba(255, 152, 0, 0.3);
-  border: 1px solid rgba(255, 152, 0, 0.5);
+  background: rgba(255, 152, 0, 0.4);
+  border: 2px solid rgba(255, 152, 0, 0.6);
   color: #ffe0b2;
 }
 
